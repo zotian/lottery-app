@@ -1,7 +1,8 @@
 <template>
   <LoginRegister
     title="Sign-in"
-    alternativeAction="/sign-up"
+    action="login"
+    alternativeAction="/register"
     alternativeActionText="Register now"
   >
   </LoginRegister>

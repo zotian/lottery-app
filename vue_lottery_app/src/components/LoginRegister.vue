@@ -5,7 +5,7 @@
     class="mb-2"
   >
     <b-card-text>    
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form>
         <b-form-group
           id="email"
           label="Email address:"
@@ -37,7 +37,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button @click.prevent="submit" type="submit" variant="primary">Submit</b-button>
       </b-form>
     </b-card-text>
 
@@ -67,27 +67,12 @@
           password: '',
           name: '',
         },
-        show: true
       }
     },
     methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
+      submit () {
+        this.$router.push('/')
       },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }
     }
   }
 </script>
@@ -108,13 +93,13 @@
       padding-right: 20px;
       white-space: nowrap;
     }
+    .card {
+      border: none;
+    }
     .card-title {
       margin-bottom: 30px;
       font-weight: bold;
     }
-  }
-  .card {
-    border: none;
   }
 
 </style>

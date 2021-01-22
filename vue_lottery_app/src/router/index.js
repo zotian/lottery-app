@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
@@ -16,9 +15,9 @@ const router = new VueRouter({
       component: () => import("../views/Login.vue")
     },
     {
-      path: '/sign-up',
-      name: 'SignUp',
-      component: () => import("../views/SignUp.vue")
+      path: '/register',
+      name: 'Register',
+      component: () => import("../views/Register.vue")
     },
     {
       path: '/',
@@ -30,7 +29,7 @@ const router = new VueRouter({
         {
           path: "/",
           name: "Home",
-          component: Home
+          component: () => import("../views/Home.vue")
         },
         {
           path: "/live-draw",
@@ -38,26 +37,19 @@ const router = new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () =>
-            import(/* webpackChunkName: "about" */ "../views/LiveDraw.vue")
-        },
-        {
-          path: "/sign-up",
-          name: "LiveDraw",
           component: () => import("../views/LiveDraw.vue")
-        }
+        },
       ]
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
-  if (to.name === 'Home') {
-    next({
-      path: '/login'
-    })
-  }
+  // if (to.name === 'Home') {
+  //   next({
+  //     path: '/login'
+  //   })
+  // }
   next()
 })
 

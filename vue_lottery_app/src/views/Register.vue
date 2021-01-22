@@ -1,6 +1,7 @@
 <template>
   <LoginRegister
     title="Register"
+    action="register"
     alternativeAction="/login"
     alternativeActionText="Login"
   >
@@ -8,14 +9,11 @@
 </template>
 
 <script>
-  export default {
-    components: {
-      'LoginRegister': () => import('@/components/LoginRegister'),
-    }
+export default {
+  components: {
+    LoginRegister: () => import("@/components/LoginRegister")
   }
+};
 </script>
 
-<style lang="scss">
-
-
-</style>
+<style lang="scss"></style>
