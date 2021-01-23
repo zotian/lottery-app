@@ -1,17 +1,14 @@
 <template>
   <div class="home flex">
     <div class="home__left flex">
-        <div style="margin-top:50px;">
-      <h4>Lucky Numbers</h4>
-      <div>
-        <span v-for="(number, index) in lotteryNumbers" :key="`${number}:${index}`">
-          <NumberButton :number="number" variant="dark" :disabled="true" :fixedStyle="true"></NumberButton>
-        </span>
+      <div style="margin-top:50px;">
+        <h4>Lucky Numbers</h4>
+        <div>
+          <span v-for="(number, index) in lotteryNumbers" :key="`${number}:${index}`">
+            <NumberButton :number="number" variant="dark" :disabled="true" :fixedStyle="true"></NumberButton>
+          </span>
+        </div>
       </div>
-
-      <div>
-    </div>
-  </div>
     </div>
     <div class="home__right flex">
       <SelectedNumbers action="live"></SelectedNumbers>

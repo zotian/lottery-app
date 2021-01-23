@@ -36,6 +36,11 @@ const router = new VueRouter({
           name: "LiveDraw",
           component: () => import("../views/LiveDraw.vue")
         },
+        {
+          path: "/history",
+          name: "History",
+          component: () => import("../views/History.vue")
+        },
       ]
     }
   ]

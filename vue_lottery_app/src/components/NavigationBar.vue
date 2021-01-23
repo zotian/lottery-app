@@ -9,10 +9,13 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item> 
-            <b-avatar style="margin-right:20px;"></b-avatar> 
-            <span class="mr-3">J. Circlehead</span>
-          </b-nav-item>
+          <b-nav-item-dropdown right>
+            <template #button-content>
+              <b-avatar style="margin-right:20px;"></b-avatar> 
+              <span class="mr-3">J. Circlehead</span>
+            </template>
+            <b-dropdown-item  @click="handleRouterChange('/history')">History</b-dropdown-item>
+          </b-nav-item-dropdown>
           <b-nav-item> 
             <b-button variant="outline-primary" @click="logout">
               <b-icon icon="power" aria-hidden="true"></b-icon> Logout
