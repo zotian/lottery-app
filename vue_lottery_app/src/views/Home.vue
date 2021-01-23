@@ -1,6 +1,11 @@
 <template>
-  <div class="home">
-    <div>Home</div>
+  <div class="home flex">
+    <div class="home__left flex">
+      <NumbersBoard></NumbersBoard>
+    </div>
+    <div class="home__right flex">
+      <SelectedNumbers></SelectedNumbers>
+    </div>
   </div>
 </template>
 
@@ -8,6 +13,25 @@
 
 export default {
   name: "Home",
-
+  components: {
+    'NumbersBoard': () => import('@/components/NumbersBoard'),
+    'SelectedNumbers': () => import('@/components/SelectedNumbers'),
+  }
 };
 </script>
+<style lang="scss">
+.flex {
+  display: flex;
+}
+.home__left {
+  width:50%;
+  z-index: 2;
+  justify-content: center;
+  border-right: 1px solid black;
+}
+.home__right {
+  width:50%;
+  z-index: 2;
+  justify-content: center;
+}
+</style>

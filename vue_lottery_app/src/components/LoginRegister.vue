@@ -84,17 +84,22 @@
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0px 15px 20px 5px rgba(40, 40, 90, 0.09), 0px 15px 20px 5px rgba(0, 0, 0, 0.065);
-    border-radius: 10px;
+    box-shadow: 0px 0px 0px 1px rgba(250, 255, 255, 0.5), 3px 2px 10px 5px rgba(250, 255, 255, 0.5);
+    border-radius: 12px;
     .alternativeAction {
       position: absolute;
       left: 100%;
+      top: 90%;
       transform: translate(-100%);
       padding-right: 20px;
       white-space: nowrap;
     }
+    a:hover {
+      text-decoration: none ;
+    }
     .card {
       border: none;
+      background-color: #fafafa;
     }
     .card-title {
       margin-bottom: 30px;
