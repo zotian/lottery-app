@@ -1,20 +1,17 @@
 <template>
   <div class="container">
     <b-table
-      :items="items"
+      :items="baseData"
       :fields="fields"
       striped
       :current-page="currentPage"
       :per-page="perPage"
-      :filter="filter"
-      :filter-included-fields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
       stacked="md"
       show-empty
       small
-      @filtered="onFiltered"
     >
       <template #cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
@@ -51,55 +48,25 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
+import {convertTimeStamp} from '@/common-js/timeConverts'
 export default {
   data () {
     return {
-      items: [
-        { isActive: false, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-        { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-        {
-          isActive: false,
-          age: 9,
-          name: { first: 'Mini', last: 'Navarro' },
-        },
-        { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-        { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-        { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-        { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-        {
-          isActive: true,
-          age: 87,
-          name: { first: 'Larsen', last: 'Shaw' },
-        },
-        { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-        { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-        { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-        { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-      ],
+      baseData: [],
       fields: [
-        { key: 'name', label: 'Person full name', sortable: true, sortDirection: 'desc' },
-        { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-        // {
-        //   key: 'isActive',
-        //   label: 'Is Active',
-        //   formatter: (value, key, item) => {
-        //     return value ? 'Yes' : 'No'
-        //   },
-        //   sortable: true,
-        //   sortByFormatted: true,
-        //   filterByFormatted: true
-        // },
-        { key: 'actions', label: 'Actions' }
+        { key: 'drawNumbers', label: 'Draw Numbers', sortable: true, sortDirection: 'desc' },
+        { key: 'status', label: 'Status', sortable: true, sortDirection: 'desc' },
+        { key: 'totalAmountWon', label: 'Amount Won', sortable: true, class: 'text-center' },
+        { key: 'actions', label: 'More' }
       ],
       totalRows: 1,
       currentPage: 1,
       perPage: 5,
       pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
-      sortBy: '',
-      sortDesc: false,
+      sortBy: 'date',
+      sortDesc: true,
       sortDirection: 'asc',
-      filter: null,
-      filterOn: [],
       infoModal: {
         id: 'info-modal',
         title: '',
@@ -107,9 +74,17 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState({
+      historyBets: state => state['history'].historyBets
+    })
+  },
   methods: {
+    ...mapActions({
+      getAllHistoryBets: 'history/getAllHistoryBets'
+    }),
     info(item, index, button) {
-      this.infoModal.title = `Row index: ${index}`
+      this.infoModal.title = `History`
       this.infoModal.content = JSON.stringify(item, null, 2)
       this.$root.$emit('bv::show::modal', this.infoModal.id, button)
     },
@@ -117,9 +92,37 @@ export default {
       this.infoModal.title = ''
       this.infoModal.content = ''
     },
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
+    },
+    addStatus (totalAmount) {
+      if (totalAmount && totalAmount !== '0') {
+        return 'Won'
+      } else {
+        return 'Lost'
+      }
+    },
+    mapData () {
+        this.baseData = JSON.parse(JSON.stringify(this.historyBets)).reduce((acc, curr) => {
+          acc.push({
+            playerBet: curr.playerBet,
+            drawNumbers: curr.drawNumbers,
+            date: convertTimeStamp(curr.timeStamp),
+            totalAmountWon: curr.totalAmountWon,
+            status: this.addStatus(curr.totalAmount),
+            userId: curr.userId
+          })
+          return acc
+        }, [])
+      this.totalRows = this.historyBets.length
+    }
   },
   created () {
-    this.totalRows = this.items.length
+    this.getAllHistoryBets()
+      .then(() => {
+        this.mapData()
+      })
   }
  }
 </script>
