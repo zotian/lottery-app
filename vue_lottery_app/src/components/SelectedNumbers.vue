@@ -108,7 +108,8 @@ export default {
   methods: {
     ...mapMutations({
       removeSelectedNumber: 'home/REMOVE_SELECTED_NUMBER',
-      toggleActiveTabs: 'navigation/TOGGLE_HOME_AND_LIVE_DRAW_ACTIVE'
+      toggleActiveTabs: 'navigation/TOGGLE_HOME_AND_LIVE_DRAW_ACTIVE',
+      toggleLiveStatus: 'liveresults/TOGGLE_LIVE_STATUS'
     }),
     removeNumber (number) {
       const payload = {
@@ -119,14 +120,17 @@ export default {
     },
     saveHistory () {
       console.log('saving to history...')
+      this.toggleLiveStatus(false)
       this.$router.push('/')
     },
     returnToHome () {
       console.log('going back to home...')
+      this.toggleLiveStatus(false)
       this.$router.push('/')
     },
     submitBet () {
       this.toggleActiveTabs()
+      this.toggleLiveStatus(true)
       this.$router.push('/live-draw')
     }
   },

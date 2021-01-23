@@ -1,7 +1,17 @@
 <template>
   <div class="home flex">
     <div class="home__left flex">
-      <NumbersBoard></NumbersBoard>
+        <div style="margin-top:50px;">
+      <h4>Lucky Numbers</h4>
+      <div>
+        <span v-for="(number, index) in lotteryNumbers" :key="`${number}:${index}`">
+          <NumberButton :number="number" variant="dark" :disabled="true" :fixedStyle="true"></NumberButton>
+        </span>
+      </div>
+
+      <div>
+    </div>
+  </div>
     </div>
     <div class="home__right flex">
       <SelectedNumbers action="live"></SelectedNumbers>
@@ -13,7 +23,7 @@
 import {mapState, mapMutations} from 'vuex'
 export default {
   components: {
-  'NumbersBoard': () => import('@/components/NumbersBoard'),
+  'NumberButton': () => import('@/components/NumberButton'),
   'SelectedNumbers': () => import('@/components/SelectedNumbers'),
   },
   data () {
@@ -23,21 +33,22 @@ export default {
   },
   computed: {
     ...mapState({
-      lotteryNumbers: state => state['liveresults'].lotteryNumbers
+      lotteryNumbers: state => state['liveresults'].lotteryNumbers,
+      liveStatus: state => state['liveresults'].liveStatus
     })
   },
   methods: {
     ...mapMutations({
-      updateLotteryNumbers: 'liveresults/UPDATE_LOOTERY_NUMBERS',
+      updateLotteryNumbers: 'liveresults/UPDATE_LOTTERY_NUMBERS',
       resetLiveState: 'liveresults/RESET_LIVE_STATE',
       resetHomeState: 'home/RESET_HOME_STATE',
       resetNavigationActiveTabs: 'navigation/RESET_NAVIGATION_ACTIVE_TABS',
-      updateHomeLink: 'navigation/UPDATE_HOME_ACTIVE'
+      updateHomeLink: 'navigation/UPDATE_HOME_ACTIVE',
+      toggleLiveStatus: 'liveresults/TOGGLE_LIVE_STATUS'
     }),
     startLive(){           
       this.intervalid = setInterval(function(){
         this.handleGenerateNumbers ()
-        console.log(this.lotteryNumbers)
         if (this.lotteryNumbers.length === 5) {
           this.updateHomeLink({ isDisabled: false, vm: this })
           clearInterval(this.intervalid)
@@ -61,10 +72,15 @@ export default {
       return this.lotteryNumbers.some(number => number === generatedNumber)
     }
   },
-  mounted () {
-    setTimeout(() => {
-      this.startLive()
-    }, 1000)
+  created () {
+    if (!this.liveStatus) {
+      this.resetLiveState({vm: this})
+      this.$router.push('/')
+    } else {
+      setTimeout(() => {
+        this.startLive()
+      }, 1000)
+    }
   },
   beforeDestroy () {
     clearInterval(this.intervalid)

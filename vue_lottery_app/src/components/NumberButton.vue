@@ -2,7 +2,8 @@
     <b-button
       :class="{'number__button':true, 'active__number': isActiveNumber}"
       style="width: 50px;"
-      pill variant="outline-secondary"
+      pill
+      :variant="variant"
       :value="number"
       :disabled="isDisabled"
       @click="selectNumber">
@@ -18,6 +19,14 @@ export default {
       type: Number
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    variant: {
+      type: String,
+      default: 'outline-secondary'
+    },
+    fixedStyle: {
       type: Boolean,
       default: false
     }
@@ -44,7 +53,7 @@ export default {
     isActiveNumber () {
       if (this.selectedNumbers.length > 0) {
         const isNumberActive = this.selectedNumbers.find(selectedNumbers => selectedNumbers === this.number)
-        if (isNumberActive) {
+        if (isNumberActive && !this.fixedStyle) {
           return true
         }
         return false

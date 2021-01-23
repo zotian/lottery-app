@@ -33,7 +33,7 @@ export default {
 .background:before{
     width: 100vw;
     content: " ";
-    background-image: url("./assets/background-login3.jpg");  
+    background-image: url("./assets/background-login.jpg");  
     background-position: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
