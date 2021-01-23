@@ -126,7 +126,8 @@ export default {
         timeStamp: Date.now(),
         drawNumbers: this.lotteryNumbers,
         playerBet: this.selectedNumbers,
-        totalAmountWon: this.winningAmmount
+        totalAmountWon: this.winningAmmount,
+        userId: JSON.parse(localStorage.getItem('loginData')).localId
       }
       this.addHistory(body)
         .then(() => {
