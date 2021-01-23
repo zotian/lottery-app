@@ -2,7 +2,7 @@
 <div>
   <navigation-bar></navigation-bar>
     <transition name="fade" mode="out-in">
-        <router-view style="height:70vh"/>
+        <router-view style="height:40vh"/>
     </transition>
 </div>
   

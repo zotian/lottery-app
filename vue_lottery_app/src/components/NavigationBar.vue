@@ -17,7 +17,7 @@
             <b-dropdown-item  @click="handleRouterChange('/history')">History</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-nav-item> 
-            <b-button variant="outline-primary" @click="logout">
+            <b-button variant="danger" @click="logout">
               <b-icon icon="power" aria-hidden="true"></b-icon> Logout
             </b-button>
           </b-nav-item>
@@ -64,5 +64,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .bg-light {
+    background-color: var(--lightColor) !important;
+  }
+  .nav-item a {
+    color: var(--dimGrey) !important;
+  }
 </style>

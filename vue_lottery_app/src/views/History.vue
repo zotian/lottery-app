@@ -45,12 +45,12 @@
       :per-page="perPage"
       align="fill"
       size="sm"
-      class="my-0"
+      class="my-0 pagination__main"
     ></b-pagination>
 
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal" ok-title="Go back">
-      <div>
+      <div class="colorDimGrey">
         <p>Date: <span class="fontBold">{{ infoModal.date }}</span> </p>
         <p>Draw Numbers: 
           <span class="fontBold" v-for="number in infoModal.drawNumbers" :key="number">{{ number }}, </span>
@@ -209,6 +209,29 @@ export default {
 }
 .fail {
   color: #dd2727
+}
+.colorDimGrey {
+  color: var(--dimGrey)
+}
+.pagination__main {
+  width: 200px;
+  margin-left: auto;
+}
+thead {
+  background-color: var(--lightColor);
+}
+.table th, .table td {
+  padding: 10px 5px !important;
+}
+.modal-footer .btn.btn-primary {
+  background-color: var(--yellowColor);
+  border-color: var(--yellowColor);
+  border-radius: 5px !important;
+}
+.modal-footer .btn.btn-primary:focus, .modal-footer .btn.btn-primary:active {
+  background-color: var(--yellowColor);
+  border-color: var(--yellowColor);
+  box-shadow: 0 0 5px 2px var(--yellowColor) !important;
 }
 
 </style>

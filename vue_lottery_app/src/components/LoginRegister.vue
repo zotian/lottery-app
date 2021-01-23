@@ -107,7 +107,7 @@
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 1px rgba(250, 255, 255, 0.5), 3px 2px 10px 5px rgba(250, 255, 255, 0.5);
+    box-shadow: 0px 0px 0px 1px rgba(250, 255, 255, 0.5), 3px 2px 5px 0px rgba(250, 255, 255, 0.5);
     border-radius: 12px;
     .alternativeAction {
       position: absolute;

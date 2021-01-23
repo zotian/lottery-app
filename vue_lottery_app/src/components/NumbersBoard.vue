@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top:50px;">
+  <div>
       <h4>Board</h4>
       <div>
         <span v-for="(number, index) in firstRow" :key="`${number}:${index}`">
