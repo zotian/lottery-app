@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 export default {
   props: {
     action: {
@@ -111,6 +111,9 @@ export default {
       toggleActiveTabs: 'navigation/TOGGLE_HOME_AND_LIVE_DRAW_ACTIVE',
       toggleLiveStatus: 'liveresults/TOGGLE_LIVE_STATUS'
     }),
+    ...mapActions({
+      addHistory: 'history/addHistory'
+    }),
     removeNumber (number) {
       const payload = {
         vm: this,
@@ -119,12 +122,20 @@ export default {
       this.removeSelectedNumber(payload)
     },
     saveHistory () {
-      console.log('saving to history...')
-      this.toggleLiveStatus(false)
-      this.$router.push('/')
+      const body = {
+        timeStamp: Date.now(),
+        drawNumbers: this.lotteryNumbers,
+        playerBet: this.selectedNumbers,
+        totalAmountWon: this.winningAmmount
+      }
+      this.addHistory(body)
+        .then(() => {
+          this.$router.push("/");
+          this.toggleLiveStatus(false)
+        })
+        .catch((err) => console.log(err));
     },
     returnToHome () {
-      console.log('going back to home...')
       this.toggleLiveStatus(false)
       this.$router.push('/')
     },
