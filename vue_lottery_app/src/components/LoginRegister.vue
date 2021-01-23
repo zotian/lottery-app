@@ -93,7 +93,7 @@
               title: `Error`,
               variant: 'danger',
             })
-            err
+            console.log(err)
           })
       }
     }

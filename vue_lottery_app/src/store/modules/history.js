@@ -1,25 +1,35 @@
 import axios from 'axios'
-const baseURL = `https://lottery-app-5a12b-default-rtdb.firebaseio.com/history.json`
+const baseURL = `https://lottery-app-5a12b-default-rtdb.firebaseio.com/`
 const state = {
    historyBets: [] 
 }
 const getters = {}
 const mutations = {
   HISTORY_BETS_RESPONSE (state, payload) {
-    state.historyBets = Object.values(payload)
+    const {res, vm} = payload
+    state.historyBets = Object.values(res)
+    Object.keys(res).forEach((key, i) => {
+      vm.$set(state.historyBets[i], 'id', key)
+    })
+  },
+  DELETE_HISTORY_RESPONSE (state, payload) {
+    const {vm, id} = payload
+    const foundIndex = state.historyBets.findIndex(item => item.id === id)
+    vm.$delete(state.historyBets, foundIndex)
   }
 }
 const actions = {
-  getAllHistoryBets({commit}) {
+  getAllHistoryBets({commit}, payload) {
+    const {vm} = payload
     return new Promise((resolve, reject) => {
       let token = localStorage.getItem('loginData') ? JSON.parse(localStorage.getItem('loginData')).idToken : ''
       let userId= localStorage.getItem('loginData') ? JSON.parse(localStorage.getItem('loginData')).localId : ''
-      const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`
+      const queryParams = `history.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`
       const url = `${baseURL}${queryParams}`
       axios
         .get(url)
           .then (res => {
-            commit('HISTORY_BETS_RESPONSE', res.data)
+            commit('HISTORY_BETS_RESPONSE', {res: res.data, vm})
             resolve(res)
           })
           .catch(err => {
@@ -33,10 +43,29 @@ const actions = {
       if (localStorage.getItem('loginData')) {
         token = JSON.parse(localStorage.getItem('loginData')).idToken
       }
-      let url = `${baseURL}?auth=${token}`
+      let url = `${baseURL}history.json?auth=${token}`
       axios
         .post(url, payload[1])
           .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+    })
+  },
+  deleteBet({commit}, paylaod) {
+    const {id, vm} = paylaod
+    return new Promise((resolve, reject) => {
+      let token = ''
+      if (localStorage.getItem('loginData')) {
+        token = JSON.parse(localStorage.getItem('loginData')).idToken
+      }
+      let url = `${baseURL}history/${id}.json?auth=${token}`
+      axios
+        .delete(url)
+          .then(res => {
+            commit('DELETE_HISTORY_RESPONSE', {vm, id})
             resolve(res)
           })
           .catch(err => {

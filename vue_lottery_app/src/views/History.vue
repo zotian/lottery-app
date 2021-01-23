@@ -1,36 +1,44 @@
 <template>
   <div class="container">
-    <b-table
-      :items="baseData"
-      :fields="fields"
-      striped
-      :current-page="currentPage"
-      :per-page="perPage"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-      :sort-direction="sortDirection"
-      stacked="md"
-      show-empty
-      small
-    >
-      <template #cell(name)="row">
-        {{ row.value.first }} {{ row.value.last }}
-      </template>
+    <div class="grid">
+      <h4>Bet History</h4>
+      <b-table
+        :items="baseData"
+        :fields="fields"
+        striped
+        bordered="bordered"
+        :current-page="currentPage"
+        :per-page="perPage"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
+        :sort-direction="sortDirection"
+        stacked="md"
+        :tbody-tr-class="rowClass"
+        show-empty
+        small
+      >
+        <template #cell(name)="row">
+          {{ row.value.first }} {{ row.value.last }}
+        </template>
 
-      <template #cell(actions)="row">
-        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-          More
-        </b-button>
-      </template>
+        <template #cell(actions)="row">
+          <b-button variant="primary" size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
+            Show More
+          </b-button>
+          <b-button variant="danger" size="sm" @click="deleteBet(row.item)" class="mr-1">
+            Delete
+          </b-button>
+        </template>
 
-      <template #row-details="row">
-        <b-card>
-          <ul>
-            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-          </ul>
-        </b-card>
-      </template>
-    </b-table>
+        <template #row-details="row">
+          <b-card>
+            <ul>
+              <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+            </ul>
+          </b-card>
+        </template>
+      </b-table>
+    </div>
     <b-pagination
       v-model="currentPage"
       :total-rows="totalRows"
@@ -41,8 +49,24 @@
     ></b-pagination>
 
     <!-- Info modal -->
-    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-      <pre>{{ infoModal.content }}</pre>
+    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal" ok-title="Go back">
+      <div>
+        <p>Date: <span class="fontBold">{{ infoModal.date }}</span> </p>
+        <p>Draw Numbers: 
+          <span class="fontBold" v-for="number in infoModal.drawNumbers" :key="number">{{ number }}, </span>
+        </p>
+        <p>Player's Bet: 
+          <span class="fontBold" v-for="number in infoModal.playerBet" :key="number">
+            <span :class="{'success': isMatchedNumber(infoModal.drawNumbers, number)}">{{number}}, </span>
+          </span>
+        </p>
+        <p>Status: 
+          <span :class="{'fontBold':true, 'success': infoModal.status === 'Won', 'fail': infoModal.status === 'Lost'}">
+            {{ infoModal.status }}
+          </span>
+        </p>
+        <p>Total Amount Won: <span class="fontBold">{{ infoModal.totalAmountWon }}</span></p>
+      </div>
     </b-modal>
   </div>
 </template>
@@ -50,7 +74,9 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import {convertTimeStamp} from '@/common-js/timeConverts'
+import toast from '@/mixins/toasts'
 export default {
+  mixins: [toast],
   data () {
     return {
       baseData: [],
@@ -58,7 +84,7 @@ export default {
         { key: 'drawNumbers', label: 'Draw Numbers', sortable: true, sortDirection: 'desc' },
         { key: 'status', label: 'Status', sortable: true, sortDirection: 'desc' },
         { key: 'totalAmountWon', label: 'Amount Won', sortable: true, class: 'text-center' },
-        { key: 'actions', label: 'More' }
+        { key: 'actions', label: 'Action' }
       ],
       totalRows: 1,
       currentPage: 1,
@@ -70,23 +96,61 @@ export default {
       infoModal: {
         id: 'info-modal',
         title: '',
-        content: ''
+        date: '',
+        drawNumbers: [],
+        playerBet: [],
+        status: '',
+        totalAmountWon: ''
       }
+    }
+  },
+  watch: {
+    historyBets () {
+      this.mapData()
     }
   },
   computed: {
     ...mapState({
       historyBets: state => state['history'].historyBets
-    })
+    }),
   },
   methods: {
     ...mapActions({
-      getAllHistoryBets: 'history/getAllHistoryBets'
+      getAllHistoryBets: 'history/getAllHistoryBets',
+      deleteHistory: 'history/deleteBet'
     }),
     info(item, index, button) {
-      this.infoModal.title = `History`
-      this.infoModal.content = JSON.stringify(item, null, 2)
+      this.infoModal = {
+        ...item,
+        id: 'info-modal',
+        title: 'History'
+      }
       this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+    },
+    deleteBet (item) {
+      this.deleteHistory({
+        vm: this,
+        id: item.id
+      })
+      .then(() => {
+        this.toast({
+          body:'History deleted successfully!',
+          title: `Success`,
+          variant: 'success',
+        })
+      })
+      .catch(err => {
+        this.toast({
+          body:'Something went wrong!',
+          title: `Error`,
+          variant: 'danger',
+        })
+        console.log(err)
+      })
+    },
+    isMatchedNumber (drawNumbers, currentNumber) {
+       let isMatched = drawNumbers.some(number => number === currentNumber)
+       return isMatched
     },
     resetInfoModal() {
       this.infoModal.title = ''
@@ -96,12 +160,17 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    addStatus (totalAmount) {
-      if (totalAmount && totalAmount !== '0') {
+    addStatus (totalAmountWon) {
+      if (totalAmountWon && Number(totalAmountWon) !== 0) {
         return 'Won'
       } else {
         return 'Lost'
       }
+    },
+    rowClass(item, type) {
+      if (!item || type !== 'row') return
+      if (item.status === 'Won') return 'table-success'
+      if (item.status === 'Lost') return 'table-danger'
     },
     mapData () {
         this.baseData = JSON.parse(JSON.stringify(this.historyBets)).reduce((acc, curr) => {
@@ -110,8 +179,9 @@ export default {
             drawNumbers: curr.drawNumbers,
             date: convertTimeStamp(curr.timeStamp),
             totalAmountWon: curr.totalAmountWon,
-            status: this.addStatus(curr.totalAmount),
-            userId: curr.userId
+            status: this.addStatus(curr.totalAmountWon),
+            userId: curr.userId,
+            id: curr.id
           })
           return acc
         }, [])
@@ -119,7 +189,7 @@ export default {
     }
   },
   created () {
-    this.getAllHistoryBets()
+    this.getAllHistoryBets({vm:this})
       .then(() => {
         this.mapData()
       })
@@ -127,6 +197,18 @@ export default {
  }
 </script>
 
-<style>
+<style lang="scss">
+.grid {
+  margin-top: 5vh;
+}
+.fontBold {
+  font-weight: bold;
+}
+.success {
+  color:#50c46a;
+}
+.fail {
+  color: #dd2727
+}
 
 </style>
