@@ -12,7 +12,7 @@
           <b-nav-item-dropdown right>
             <template #button-content>
               <b-avatar style="margin-right:20px;"></b-avatar> 
-              <span class="mr-3">J. Circlehead</span>
+              <span class="mr-3">{{ userEmail }}</span>
             </template>
             <b-dropdown-item  @click="handleRouterChange('/history')">History</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -31,9 +31,15 @@
 import { resetState } from '@/store'
 import {mapState} from 'vuex'
 export default {
+  data () {
+    return {
+      userEmail: null
+    }
+  },
   methods: {
     logout () {
       resetState()
+      localStorage.removeItem('loginData');
       this.$router.push('/login')
     },
     handleRouterChange (path) {
@@ -50,6 +56,11 @@ export default {
       isLiveDrawDisabled: state => state['navigation'].isLiveDrawDisabled
     })
   },
+  created () {
+    if (localStorage.getItem('loginData')) {
+      this.userEmail = JSON.parse(localStorage.getItem('loginData')).email
+    }
+  }
 }
 </script>
 

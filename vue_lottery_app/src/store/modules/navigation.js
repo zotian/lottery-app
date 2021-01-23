@@ -16,10 +16,7 @@ const mutations = {
   UPDATE_HOME_ACTIVE(state, payload) {
     const {vm, isDisabled} = payload
     vm.$set(state, 'isHomeDisabled', isDisabled)
-  },
-  // UPDATE_LIVE_DRAW_ACTIVE(state, payload) {
-  //   state.isLiveDrawDisabled = payload
-  // }
+  }
 }
 const actions = {
 

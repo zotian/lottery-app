@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   export default {
     props: {
       title: {
@@ -65,14 +66,27 @@
       return {
         form: {
           password: '',
-          name: '',
+          email: '',
         },
       }
     },
     methods: {
-      submit () {
-        this.$router.push('/')
-      },
+      ...mapActions({
+        loginRegister: 'login/loginRegister',
+      }),
+      submit() {
+        const payload = {
+          vm: this,
+          formData: this.form,
+          returnSecureToken: true,
+          action: this.$route.path === "/login" ? 'login' : 'register'
+        };
+        this.loginRegister(payload)
+          .then(() => {
+            this.$router.push("/")
+          })
+          .catch((err) => err)
+      }
     }
   }
 </script>

@@ -47,12 +47,33 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // if (to.name === 'Home') {
-  //   next({
-  //     path: '/login'
-  //   })
-  // }
-  next()
+  let isAuth = !!localStorage.getItem('loginData')
+  let appSession
+  try {
+    appSession = JSON.parse(localStorage.getItem('loginData'))
+  } catch (e) {
+    isAuth = false
+  }
+  if (isAuth) {
+    if (
+      !appSession.idToken
+    ) {
+      isAuth = false
+      localStorage.removeItem('loginData')
+    }
+  }
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  if (requiresAuth && !isAuth) {
+    next({
+      path: '/login'
+    })
+  } else if (isAuth && to.path === '/login') {
+    next({
+      path: from.path
+    })
+  } else {
+    next()
+  }
 })
 
 export default router;
