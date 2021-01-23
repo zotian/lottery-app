@@ -50,7 +50,9 @@
 
 <script>
   import {mapActions} from 'vuex'
+  import toast from '@/mixins/toasts'
   export default {
+    mixins: [toast],
     props: {
       title: {
         type: String
@@ -85,7 +87,14 @@
           .then(() => {
             this.$router.push("/")
           })
-          .catch((err) => err)
+          .catch((err) => {
+            this.toast({
+              body:'Invalid Email addrress or Password!',
+              title: `Error`,
+              variant: 'danger',
+            })
+            err
+          })
       }
     }
   }

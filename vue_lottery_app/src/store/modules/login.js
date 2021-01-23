@@ -31,11 +31,6 @@ const actions = {
             resolve(res)
           })
           .catch((err) => {
-            vm.$bvToast.toast('Invalid Email addrress or Password!', {
-              title: `Error`,
-              variant: 'danger',
-              solid: true
-            })
             reject(err)
           })
     })
