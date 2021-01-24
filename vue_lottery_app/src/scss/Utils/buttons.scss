@@ -1,30 +1,43 @@
 @import '~@/scss/colors';
-.btn.btn-primary {
+  .btn.btn-primary {
     background-color: $mediumColor;
     border-color: $mediumColor;
+    border-radius: 5px !important;
   }
   .btn.btn-primary:focus, .modal-footer .btn.btn-primary:active {
-    background-color: $mediumColor;
-    border-color: $mediumColor;
+    background-color: $mediumColor !important;
+    border-color: $mediumColor !important;
     box-shadow: 0 0 5px 2px $mediumColor !important;
   }
   .btn.btn-success {
-    background-color: $greenColor;
-    border-color: $greenColor;
+    background-color: $greenColor !important;
+    border-color: $greenColor !important;
     border-radius: 5px !important;
   }
   .btn.btn-success:focus, .modal-footer .btn.btn-success:active {
-    background-color: $greenColor;
-    border-color: $greenColor;
+    background-color: $greenColor !important;
+    border-color: $greenColor !important;
     box-shadow: 0 0 5px 2px $greenColor !important;
   }
   .btn.btn-danger {
-    background-color: $redColor;
-    border-color: $redColor;
+    background-color: $redColor !important;
+    border-color: $redColor !important;
     border-radius: 5px !important;
   }
   .btn.btn-danger:focus, .modal-footer .btn.btn-danger:active {
-    background-color: $redColor;
-    border-color: $redColor;
+    background-color: $redColor !important;
+    border-color: $redColor !important;
     box-shadow: 0 0 5px 2px $redColor !important;
+  }
+  .btn.btn-warning {
+    background-color: $yellowColor !important;
+    border-color: $yellowColor !important;
+    border-radius: 5px !important;
+    color: white !important;
+  }
+  .btn.btn-warning:focus, .modal-footer .btn.btn-warning:active {
+    background-color: $yellowColor !important;
+    border-color: $yellowColor !important;
+    box-shadow: 0 0 5px 2px $yellowColor !important;
+    color: white !important;
   }

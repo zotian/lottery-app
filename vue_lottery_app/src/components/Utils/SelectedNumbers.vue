@@ -1,34 +1,56 @@
 <template>
   <div>
-      <h4>Selected Numbers</h4>
-      <div>
-        <div v-for="(number, index) in selectedNumbers" :key="`${number}:${index}`">
-          <NumberButton :number="number" :disabled="true"></NumberButton>
-          <b-button v-if="action !== 'live'" style='margin-left:10px;' variant="outline-danger" :pill="true" @click="removeNumber(number)">
-            <b-icon icon="trash-fill" ></b-icon>
-          </b-button>
-          <span v-else>
-              <b-icon v-if="isWinningNumber({number})" style='margin-left:10px;' icon="check-square" variant="success" scale="2"></b-icon>
-          </span>
+    <h4>Selected Numbers</h4>
+    <div>
+      <div
+        v-for="(number, index) in selectedNumbers"
+        :key="`${number}:${index}`"
+      >
+        <NumberButton :number="number" :disabled="true"></NumberButton>
+        <b-button
+          v-if="action !== 'live'"
+          style="margin-left:10px;"
+          variant="outline-danger"
+          :pill="true"
+          @click="removeNumber(number)"
+        >
+          <b-icon icon="trash-fill"></b-icon>
+        </b-button>
+        <span v-else>
+          <b-icon
+            v-if="isWinningNumber({ number })"
+            style="margin-left:10px;"
+            icon="check-square"
+            variant="success"
+            scale="2"
+          ></b-icon>
+        </span>
+      </div>
+    </div>
+    <div v-if="action !== 'live'" class="mt-4">
+      <b-button
+        :disabled="isDisabled"
+        squared
+        variant="success"
+        @click="submitBet"
+        >Submit</b-button
+      >
+    </div>
+    <div v-else class="mt-4">
+      <div v-if="matchedNumbers > 2">
+        <h4 style="color:green;">Winning Bet</h4>
+        <div>
+          <span>Total winning amount: {{ winningAmmount }}</span>
         </div>
       </div>
-      <div v-if="action !== 'live'" class="mt-4">
-        <b-button :disabled="isDisabled" squared variant="success" @click="submitBet">Submit</b-button>
-      </div>
-      <div v-else class="mt-4">
-        <div v-if="matchedNumbers > 2">
-          <h4 style="color:green;">Winning Bet</h4>
-          <div>
-            <span>Total winning amount: {{ winningAmmount }}</span>
-          </div>
-        </div>
-      </div>
-      <div>
-
-        <!-- modal -->
-      <b-modal 
-        v-model="showModal" 
+    </div>
+    <div>
+      <!-- modal -->
+      <b-modal
+        v-model="showModal"
         :title="modalTitle"
+        ok-variant="success"
+        cancel-variant="warning"
         ok-title="Save to History"
         cancel-title="Go back"
         :no-close-on-esc="true"
@@ -36,155 +58,135 @@
         @ok="saveHistory"
         @cancel="returnToHome"
         @close="returnToHome"
-        >
-        <p class="my-4">Total winning amount: {{ winningAmmount }} </p>
+      >
+        <p class="my-4">Total winning amount: {{ winningAmmount }}</p>
       </b-modal>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState, mapMutations, mapActions} from 'vuex'
-import toast from '@/mixins/toasts'
+import { mapState, mapMutations, mapActions } from "vuex";
+import toast from "@/mixins/toasts";
 export default {
   mixins: [toast],
   props: {
     action: {
       type: String,
-      default: 'home'
+      default: "home"
     }
   },
   components: {
-    'NumberButton': () => import('@/components/Utils/NumberButton')
+    NumberButton: () => import("@/components/Utils/NumberButton")
   },
-  data () {
+  data() {
     return {
       showModal: false
-    }
+    };
   },
   watch: {
-    lotteryNumbers (data) {
+    lotteryNumbers(data) {
       if (data.length === 5) {
-        this.showModal = true
+        this.showModal = true;
       }
     }
   },
   computed: {
     ...mapState({
-      selectedNumbers: state => state['home'].selectedNumbers,
-      lotteryNumbers: state => state['liveresults'].lotteryNumbers
+      selectedNumbers: state => state["home"].selectedNumbers,
+      lotteryNumbers: state => state["liveresults"].lotteryNumbers
     }),
-    isWinningNumber () {
-      return (cb) => {
-        let isMatched = this.lotteryNumbers.some(number => number === cb.number)
-        return isMatched
-      }
+    isWinningNumber() {
+      return cb => {
+        let isMatched = this.lotteryNumbers.some(
+          number => number === cb.number
+        );
+        return isMatched;
+      };
     },
-    matchedNumbers () {
+    matchedNumbers() {
       const matches = this.lotteryNumbers.reduce((acc, curr) => {
         if (this.selectedNumbers.includes(curr)) {
-          acc.push(curr)
+          acc.push(curr);
         }
-        return acc
-      }, [])
-      return matches.length
+        return acc;
+      }, []);
+      return matches.length;
     },
-    winningAmmount () {
+    winningAmmount() {
       const obj = {
-        '3': '10€',
-        '4': '15€',
-        '5': '20€'
-      }
-      return obj[this.matchedNumbers] || '0'
+        "3": "10€",
+        "4": "15€",
+        "5": "20€"
+      };
+      return obj[this.matchedNumbers] || "0";
     },
-    modalTitle () {
+    modalTitle() {
       if (this.matchedNumbers > 2) {
-        return 'Winning Bet'
+        return "Winning Bet";
       }
-      return 'Loosing Bet'
+      return "Loosing Bet";
     },
-    isDisabled () {
-      return this.selectedNumbers.length !== 5
+    isDisabled() {
+      return this.selectedNumbers.length !== 5;
     }
   },
   methods: {
     ...mapMutations({
-      removeSelectedNumber: 'home/REMOVE_SELECTED_NUMBER',
-      toggleActiveTabs: 'navigation/TOGGLE_HOME_AND_LIVE_DRAW_ACTIVE',
-      toggleLiveStatus: 'liveresults/TOGGLE_LIVE_STATUS'
+      removeSelectedNumber: "home/REMOVE_SELECTED_NUMBER",
+      toggleActiveTabs: "navigation/TOGGLE_HOME_AND_LIVE_DRAW_ACTIVE",
+      toggleLiveStatus: "liveresults/TOGGLE_LIVE_STATUS"
     }),
     ...mapActions({
-      addHistory: 'history/addHistory'
+      addHistory: "history/addHistory"
     }),
-    removeNumber (number) {
+    removeNumber(number) {
       const payload = {
         vm: this,
         number
-      }
-      this.removeSelectedNumber(payload)
+      };
+      this.removeSelectedNumber(payload);
     },
-    saveHistory () {
+    saveHistory() {
       const body = {
         timeStamp: Date.now(),
         drawNumbers: this.lotteryNumbers,
         playerBet: this.selectedNumbers,
         totalAmountWon: this.winningAmmount,
-        userId: JSON.parse(localStorage.getItem('loginData')).localId
-      }
+        userId: JSON.parse(localStorage.getItem("loginData")).localId
+      };
       this.addHistory(body)
         .then(() => {
           this.toast({
-            body:'History saved successfully!',
+            body: "History saved successfully!",
             title: `Success`,
-            variant: 'success'
-          })
+            variant: "success"
+          });
           setTimeout(() => {
-            this.$router.push("/")
-          }, 1500)
-          this.toggleLiveStatus(false)
+            this.$router.push("/");
+          }, 1500);
+          this.toggleLiveStatus(false);
         })
-        .catch((err) => {
+        .catch(err => {
           this.toast({
-            body:'Something went wrong!',
+            body: "Something went wrong!",
             title: `Error`,
-            variant: 'error',
-          })
-          console.log(err)
+            variant: "error"
+          });
+          console.log(err);
         });
     },
-    returnToHome () {
-      this.toggleLiveStatus(false)
-      this.$router.push('/')
+    returnToHome() {
+      this.toggleLiveStatus(false);
+      this.$router.push("/");
     },
-    submitBet () {
-      this.toggleActiveTabs()
-      this.toggleLiveStatus(true)
-      this.$router.push('/live-draw')
+    submitBet() {
+      this.toggleActiveTabs();
+      this.toggleLiveStatus(true);
+      this.$router.push("/live-draw");
     }
-  },
-}
+  }
+};
 </script>
 
-<style lang="scss">
-@import '~@/scss/colors';
-.modal-footer .btn.btn-primary {
-  background-color: $greenColor;
-  border-color: $greenColor;
-  border-radius: 5px !important;
-}
-.modal-footer .btn.btn-primary:focus, .modal-footer .btn.btn-primary:active {
-  background-color: $greenColor;
-  border-color: $greenColor;
-  box-shadow: 0 0 5px 2px $greenColor !important;
-  }
-.modal-footer .btn.btn-secondary {
-  background-color: $yellowColor;
-  border-color: $yellowColor;
-  border-radius: 5px !important;
-}
-.modal-footer .btn.btn-secondary:focus, .modal-footer .btn.btn-secondary:active {
-  background-color: $yellowColor;
-  border-color: $yellowColor;
-  box-shadow: 0 0 5px 2px $yellowColor !important;
-}
-</style>
+<style lang="scss"></style>

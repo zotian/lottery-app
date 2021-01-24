@@ -19,8 +19,8 @@
     width:45vw;
     z-index: 2;
     justify-content: center;
-    background:$lightColor !important;
-    color: $dimGrey;
+    background:$mediumBlue;
+    color: white;
     border-radius: 5px;
     padding: 50px;
   }
@@ -31,11 +31,27 @@
     width:45vw;
     z-index: 2;
     justify-content: center;
-    background:$lightColor !important;
+    background:$lightGrey;
     color: $dimGrey;
     border-radius: 5px;
     padding: 50px;
   }
+  .active__number {
+    background: #edff00 !important;
+    color: black !important;
+  }
+  .btn.disabled, .btn:disabled {
+    opacity: 0.9;
+}
+.numbers__board button.btn.btn-outline-secondary.rounded-pill.number__button {
+  color: white;
+  border-color: white;
+  &:active {
+    background: #edff00 !important;
+    color: black !important;
+    border-color: #edff00 !important;
+  }
+}
   @media (max-width: 800px) {
     .home__left, .home__right {
       width: 90vw

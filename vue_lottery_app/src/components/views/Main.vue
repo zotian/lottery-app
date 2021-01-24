@@ -1,23 +1,18 @@
 <template>
-<div>
-  <navigation-bar></navigation-bar>
+  <div>
+    <navigation-bar></navigation-bar>
     <transition name="fade" mode="out-in">
-        <router-view style="height:40vh"/>
+      <router-view style="height:40vh" />
     </transition>
-</div>
-  
+  </div>
 </template>
 
 <script>
 export default {
   components: {
-    'navigation-bar': () => import('@/components/Utils/NavigationBar'),
-  },
-  created () {
+    "navigation-bar": () => import("@/components/Utils/NavigationBar")
   }
-}
+};
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
