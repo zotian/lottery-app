@@ -1,5 +1,13 @@
 <template>
   <div class="home flex">
+    <span class="spinner_label_position">LIVE</span>
+    <b-spinner
+      v-if="isLive"
+      class="spinner_position"
+      variant="success"
+      type="grow"
+      label="Spinning"
+    ></b-spinner>
     <div class="home__left flex">
       <h4>Lucky Numbers</h4>
       <div class="numbers__board">
@@ -32,7 +40,8 @@ export default {
   },
   data() {
     return {
-      intervalid: ""
+      intervalid: "",
+      isLive: false
     };
   },
   computed: {
@@ -51,15 +60,17 @@ export default {
       toggleLiveStatus: "liveresults/TOGGLE_LIVE_STATUS"
     }),
     startLive() {
+      this.isLive = true;
       this.intervalid = setInterval(
         function() {
           this.handleGenerateNumbers();
           if (this.lotteryNumbers.length === 5) {
             this.updateHomeLink({ isDisabled: false, vm: this });
+            this.isLive = false;
             clearInterval(this.intervalid);
           }
         }.bind(this),
-        1000
+        4000
       );
     },
     handleGenerateNumbers() {
@@ -86,15 +97,30 @@ export default {
     } else {
       setTimeout(() => {
         this.startLive();
-      }, 1000);
+      }, 3000);
     }
   },
   beforeDestroy() {
     clearInterval(this.intervalid);
+    this.isLive = false;
     this.resetLiveState({ vm: this });
     this.resetHomeState({ vm: this });
     this.resetNavigationActiveTabs({ vm: this });
   }
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.spinner_position {
+  position: absolute;
+  top: 10%;
+  left: 49%;
+}
+.spinner_label_position {
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  position: absolute;
+  top: 8%;
+  left: 49%;
+}
+</style>

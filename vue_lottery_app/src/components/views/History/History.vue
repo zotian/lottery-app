@@ -1,5 +1,11 @@
 <template>
   <div class="container">
+    <b-spinner
+      v-if="isWaitingForResponse"
+      class="spinner_position"
+      variant="secondary"
+      label="Spinning"
+    ></b-spinner>
     <div class="grid">
       <h4>Bet History</h4>
       <b-table
@@ -74,6 +80,7 @@ export default {
   },
   data() {
     return {
+      isWaitingForResponse: false,
       baseData: [],
       fields: [
         {
@@ -138,13 +145,14 @@ export default {
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
     deleteBet(item) {
+      console.log(item);
       this.deleteHistory({
         vm: this,
         id: item.id
       })
         .then(() => {
           this.toast({
-            body: "History deleted successfully!",
+            body: `Bet at ${item.date} was deleted successfully!`,
             title: `Success`,
             variant: "success"
           });
@@ -194,7 +202,9 @@ export default {
     }
   },
   created() {
+    this.isWaitingForResponse = true;
     this.getAllHistoryBets({ vm: this }).then(() => {
+      this.isWaitingForResponse = false;
       this.mapData();
     });
   }
