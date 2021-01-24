@@ -9,14 +9,11 @@
 </template>
 
 <script>
-  export default {
-    components: {
-      'LoginRegister': () => import('@/components/Utils/LoginRegister'),
-    }
+export default {
+  components: {
+    LoginRegister: () => import("@/components/Utils/LoginRegister")
   }
+};
 </script>
 
-<style lang="scss">
-
-
-</style>
+<style lang="scss"></style>

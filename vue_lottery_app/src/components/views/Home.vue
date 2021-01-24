@@ -10,15 +10,12 @@
 </template>
 
 <script>
-
 export default {
   name: "Home",
   components: {
-    'NumbersBoard': () => import('@/components/Utils/NumbersBoard'),
-    'SelectedNumbers': () => import('@/components/Utils/SelectedNumbers'),
+    NumbersBoard: () => import("@/components/Utils/NumbersBoard"),
+    SelectedNumbers: () => import("@/components/Utils/SelectedNumbers")
   }
 };
 </script>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

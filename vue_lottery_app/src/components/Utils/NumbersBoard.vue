@@ -1,16 +1,16 @@
 <template>
   <div style="display:flex;align-items:center;">
-    <div class='numbers__board'>
+    <div class="numbers__board">
       <span v-for="(number, index) in firstRow" :key="`${number}:${index}`">
         <NumberButton :number="number"></NumberButton>
       </span>
     </div>
-    <div class='numbers__board'>
+    <div class="numbers__board">
       <span v-for="(number, index) in secondRow" :key="`${number}:${index}`">
         <NumberButton :number="number"></NumberButton>
       </span>
     </div>
-    <div class='numbers__board'>
+    <div class="numbers__board">
       <span v-for="(number, index) in thirdRow" :key="`${number}:${index}`">
         <NumberButton :number="number"></NumberButton>
       </span>
@@ -35,6 +35,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

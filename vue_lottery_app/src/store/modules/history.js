@@ -1,79 +1,83 @@
-import axios from 'axios'
-const baseURL = `https://lottery-app-5a12b-default-rtdb.firebaseio.com/`
+import axios from "axios";
+const baseURL = `https://lottery-app-5a12b-default-rtdb.firebaseio.com/`;
 const state = {
-   historyBets: [] 
-}
-const getters = {}
+  historyBets: []
+};
+const getters = {};
 const mutations = {
-  HISTORY_BETS_RESPONSE (state, payload) {
-    const {res, vm} = payload
-    state.historyBets = Object.values(res)
+  HISTORY_BETS_RESPONSE(state, payload) {
+    const { res, vm } = payload;
+    state.historyBets = Object.values(res);
     Object.keys(res).forEach((key, i) => {
-      vm.$set(state.historyBets[i], 'id', key)
-    })
+      vm.$set(state.historyBets[i], "id", key);
+    });
   },
-  DELETE_HISTORY_RESPONSE (state, payload) {
-    const {vm, id} = payload
-    const foundIndex = state.historyBets.findIndex(item => item.id === id)
-    vm.$delete(state.historyBets, foundIndex)
+  DELETE_HISTORY_RESPONSE(state, payload) {
+    const { vm, id } = payload;
+    const foundIndex = state.historyBets.findIndex(item => item.id === id);
+    vm.$delete(state.historyBets, foundIndex);
   }
-}
+};
 const actions = {
-  getAllHistoryBets({commit}, payload) {
-    const {vm} = payload
+  getAllHistoryBets({ commit }, payload) {
+    const { vm } = payload;
     return new Promise((resolve, reject) => {
-      let token = localStorage.getItem('loginData') ? JSON.parse(localStorage.getItem('loginData')).idToken : ''
-      let userId= localStorage.getItem('loginData') ? JSON.parse(localStorage.getItem('loginData')).localId : ''
-      const queryParams = `history.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`
-      const url = `${baseURL}${queryParams}`
+      let token = localStorage.getItem("loginData")
+        ? JSON.parse(localStorage.getItem("loginData")).idToken
+        : "";
+      let userId = localStorage.getItem("loginData")
+        ? JSON.parse(localStorage.getItem("loginData")).localId
+        : "";
+      const queryParams = `history.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
+      const url = `${baseURL}${queryParams}`;
       axios
         .get(url)
-          .then (res => {
-            commit('HISTORY_BETS_RESPONSE', {res: res.data, vm})
-            resolve(res)
-          })
-          .catch(err => {
-            reject(err)
-          })
-    })
+        .then(res => {
+          commit("HISTORY_BETS_RESPONSE", { res: res.data, vm });
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   addHistory(...payload) {
-    return new Promise ((resolve, reject) => {
-      let token = ''
-      if (localStorage.getItem('loginData')) {
-        token = JSON.parse(localStorage.getItem('loginData')).idToken
+    return new Promise((resolve, reject) => {
+      let token = "";
+      if (localStorage.getItem("loginData")) {
+        token = JSON.parse(localStorage.getItem("loginData")).idToken;
       }
-      let url = `${baseURL}history.json?auth=${token}`
+      let url = `${baseURL}history.json?auth=${token}`;
       axios
         .post(url, payload[1])
-          .then(res => {
-            resolve(res)
-          })
-          .catch(err => {
-            reject(err)
-          })
-    })
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
-  deleteBet({commit}, paylaod) {
-    const {id, vm} = paylaod
+  deleteBet({ commit }, paylaod) {
+    const { id, vm } = paylaod;
     return new Promise((resolve, reject) => {
-      let token = ''
-      if (localStorage.getItem('loginData')) {
-        token = JSON.parse(localStorage.getItem('loginData')).idToken
+      let token = "";
+      if (localStorage.getItem("loginData")) {
+        token = JSON.parse(localStorage.getItem("loginData")).idToken;
       }
-      let url = `${baseURL}history/${id}.json?auth=${token}`
+      let url = `${baseURL}history/${id}.json?auth=${token}`;
       axios
         .delete(url)
-          .then(res => {
-            commit('DELETE_HISTORY_RESPONSE', {vm, id})
-            resolve(res)
-          })
-          .catch(err => {
-            reject(err)
-          })
-    })
+        .then(res => {
+          commit("DELETE_HISTORY_RESPONSE", { vm, id });
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
-}
+};
 
 export default {
   namespaced: true,
@@ -81,4 +85,4 @@ export default {
   getters,
   mutations,
   actions
-}
+};
