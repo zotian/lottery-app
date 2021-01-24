@@ -2,9 +2,11 @@
   <div class="footer">
     <ul class="footer_ul">
       <li>
-        <p style="padding-top:10px; margin:0;" class="nav-link" href="">Terms and conditions</p>
+        <p style="padding-top:10px; margin:0;">Footer Content</p>
       </li>
-      <li>FOLLOW US ON</li>
+      <li>
+        <p style="padding-top:10px; margin:0;">Footer Content</p>
+      </li>
       <li>
         <p style="padding-top:10px; margin:0;">&#169; Vasilis Zotos</p>
       </li>
@@ -26,11 +28,9 @@ export default {};
   top: 90%;
   left: 50%;
   transform: translate(-50%, 0%);
-  z-index: 2;
   width: 100%;
   text-align: center;
   height: 10vh;
-  overflow: auto;
   display: flex;
 }
 .footer_ul {
