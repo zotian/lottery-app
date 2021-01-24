@@ -46,21 +46,13 @@
     </div>
     <div>
       <!-- modal -->
-      <b-modal
-        v-model="showModal"
-        :title="modalTitle"
-        ok-variant="success"
-        cancel-variant="warning"
-        ok-title="Save to History"
-        cancel-title="Go back"
-        :no-close-on-esc="true"
-        :no-close-on-backdrop="true"
-        @ok="saveHistory"
-        @cancel="returnToHome"
-        @close="returnToHome"
-      >
-        <p class="my-4">Total winning amount: {{ winningAmmount }}</p>
-      </b-modal>
+      <Live-Draw-Save-History
+        :id="modalId"
+        :modalTitle="modalTitle"
+        :winningAmmount="winningAmmount"
+        @saveHistory="saveHistory"
+        @returnToHome="returnToHome"
+      ></Live-Draw-Save-History>
     </div>
   </div>
 </template>
@@ -77,10 +69,13 @@ export default {
     }
   },
   components: {
-    NumberButton: () => import("@/components/Utils/NumberButton")
+    NumberButton: () => import("@/components/Utils/NumberButton"),
+    "Live-Draw-Save-History": () =>
+      import("@/components/views/Modals/LiveDrawSaveHistory")
   },
   data() {
     return {
+      modalId: "save_history_modal",
       showModal: false
     };
   },
@@ -88,6 +83,7 @@ export default {
     lotteryNumbers(data) {
       if (data.length === 5) {
         this.showModal = true;
+        this.$root.$emit("bv::show::modal", this.modalId);
       }
     }
   },
