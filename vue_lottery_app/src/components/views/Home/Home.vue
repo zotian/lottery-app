@@ -13,7 +13,7 @@
 export default {
   name: "Home",
   components: {
-    NumbersBoard: () => import("@/components/Utils/NumbersBoard"),
+    NumbersBoard: () => import("@/components/views/Home/Components/NumbersBoard"),
     SelectedNumbers: () => import("@/components/Utils/SelectedNumbers")
   }
 };

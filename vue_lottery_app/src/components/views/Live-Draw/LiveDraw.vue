@@ -59,7 +59,7 @@ export default {
             clearInterval(this.intervalid);
           }
         }.bind(this),
-        4000
+        1000
       );
     },
     handleGenerateNumbers() {
@@ -86,7 +86,7 @@ export default {
     } else {
       setTimeout(() => {
         this.startLive();
-      }, 3000);
+      }, 1000);
     }
   },
   beforeDestroy() {

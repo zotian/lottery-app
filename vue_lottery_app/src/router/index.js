@@ -12,12 +12,12 @@ const router = new VueRouter({
     {
       path: "/login",
       name: "Login",
-      component: () => import("../components/views/Login.vue")
+      component: () => import("../components/views/Login-Register/Login.vue")
     },
     {
       path: "/register",
       name: "Register",
-      component: () => import("../components/views/Register.vue")
+      component: () => import("../components/views/Login-Register/Register.vue")
     },
     {
       path: "/",
@@ -29,17 +29,17 @@ const router = new VueRouter({
         {
           path: "/",
           name: "Home",
-          component: () => import("../components/views/Home.vue")
+          component: () => import("../components/views/Home/Home.vue")
         },
         {
           path: "/live-draw",
           name: "LiveDraw",
-          component: () => import("../components/views/LiveDraw.vue")
+          component: () => import("../components/views/Live-Draw/LiveDraw.vue")
         },
         {
           path: "/history",
           name: "History",
-          component: () => import("../components/views/History.vue")
+          component: () => import("../components/views/History/History.vue")
         }
       ]
     }

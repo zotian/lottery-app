@@ -11,7 +11,7 @@
 <script>
 export default {
   components: {
-    LoginRegister: () => import("@/components/Utils/LoginRegister")
+    LoginRegister: () => import("@/components/views/Login-Register/Components/LoginRegister")
   }
 };
 </script>
