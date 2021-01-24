@@ -19,8 +19,8 @@ export default {};
 <style lang='scss'>
 @import "~@/scss/colors";
 .footer {
-  background-color: $darkBlue !important;
-  color: white;;
+  background-color: $darkBlue;
+  color: white;
   font-weight: bold;
   position: absolute;
   top: 90%;

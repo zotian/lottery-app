@@ -47,9 +47,9 @@
   color: white;
   border-color: white;
   &:active {
-    background: #edff00 !important;
-    color: black !important;
-    border-color: #edff00 !important;
+    background: #edff00;
+    color: black;
+    border-color: #edff00;
   }
 }
   @media (max-width: 800px) {

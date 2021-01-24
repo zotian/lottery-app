@@ -287,6 +287,6 @@ thead {
 }
 .table th,
 .table td {
-  padding: 10px 5px !important;
+  padding: 10px 5px;
 }
 </style>
