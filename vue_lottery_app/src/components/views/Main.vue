@@ -11,7 +11,7 @@
 <script>
 export default {
   components: {
-    'navigation-bar': () => import('@/components/NavigationBar'),
+    'navigation-bar': () => import('@/components/Utils/NavigationBar'),
   },
   created () {
   }

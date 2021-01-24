@@ -12,16 +12,16 @@ const router = new VueRouter({
     {
       path: '/login',
       name: 'Login',
-      component: () => import("../views/Login.vue")
+      component: () => import("../components/views/Login.vue")
     },
     {
       path: '/register',
       name: 'Register',
-      component: () => import("../views/Register.vue")
+      component: () => import("../components/views/Register.vue")
     },
     {
       path: '/',
-      component: () => import("../views/Main.vue"),
+      component: () => import("../components/views/Main.vue"),
       meta: {
         requiresAuth: true
       },
@@ -29,17 +29,17 @@ const router = new VueRouter({
         {
           path: "/",
           name: "Home",
-          component: () => import("../views/Home.vue")
+          component: () => import("../components/views/Home.vue")
         },
         {
           path: "/live-draw",
           name: "LiveDraw",
-          component: () => import("../views/LiveDraw.vue")
+          component: () => import("../components/views/LiveDraw.vue")
         },
         {
           path: "/history",
           name: "History",
-          component: () => import("../views/History.vue")
+          component: () => import("../components/views/History.vue")
         },
       ]
     }

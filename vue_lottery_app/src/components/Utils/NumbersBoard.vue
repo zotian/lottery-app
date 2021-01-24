@@ -22,7 +22,7 @@
 <script>
 export default {
   components: {
-    'NumberButton': () => import('@/components/NumberButton')
+    'NumberButton': () => import('@/components/Utils/NumberButton')
   },
   data () {
       return {

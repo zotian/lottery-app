@@ -14,8 +14,8 @@
 export default {
   name: "Home",
   components: {
-    'NumbersBoard': () => import('@/components/NumbersBoard'),
-    'SelectedNumbers': () => import('@/components/SelectedNumbers'),
+    'NumbersBoard': () => import('@/components/Utils/NumbersBoard'),
+    'SelectedNumbers': () => import('@/components/Utils/SelectedNumbers'),
   }
 };
 </script>

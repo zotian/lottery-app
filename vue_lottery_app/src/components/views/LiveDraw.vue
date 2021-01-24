@@ -20,8 +20,8 @@
 import {mapState, mapMutations} from 'vuex'
 export default {
   components: {
-  'NumberButton': () => import('@/components/NumberButton'),
-  'SelectedNumbers': () => import('@/components/SelectedNumbers'),
+  'NumberButton': () => import('@/components/Utils/NumberButton'),
+  'SelectedNumbers': () => import('@/components/Utils/SelectedNumbers'),
   },
   data () {
     return {
