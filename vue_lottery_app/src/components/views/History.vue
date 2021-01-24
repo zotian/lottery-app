@@ -59,62 +59,7 @@
       size="sm"
       class="my-0 pagination__main"
     ></b-pagination>
-
-    <!-- Info modal -->
-    <b-modal
-      ok-variant="warning"
-      :id="infoModal.id"
-      :title="infoModal.title"
-      ok-only
-      @hide="resetInfoModal"
-      ok-title="Go back"
-    >
-      <div class="colorDimGrey">
-        <p>
-          Date: <span class="fontBold">{{ infoModal.date }}</span>
-        </p>
-        <p>
-          Draw Numbers:
-          <span
-            class="fontBold"
-            v-for="number in infoModal.drawNumbers"
-            :key="number"
-            >{{ number }},
-          </span>
-        </p>
-        <p>
-          Player's Bet:
-          <span
-            class="fontBold"
-            v-for="number in infoModal.playerBet"
-            :key="number"
-          >
-            <span
-              :class="{
-                success: isMatchedNumber(infoModal.drawNumbers, number)
-              }"
-              >{{ number }},
-            </span>
-          </span>
-        </p>
-        <p>
-          Status:
-          <span
-            :class="{
-              fontBold: true,
-              success: infoModal.status === 'Won',
-              fail: infoModal.status === 'Lost'
-            }"
-          >
-            {{ infoModal.status }}
-          </span>
-        </p>
-        <p>
-          Total Amount Won:
-          <span class="fontBold">{{ infoModal.totalAmountWon }}</span>
-        </p>
-      </div>
-    </b-modal>
+    <History-Info :infoModal="infoModal"></History-Info>
   </div>
 </template>
 
@@ -124,6 +69,9 @@ import { convertTimeStamp } from "@/common-js/timeConverts";
 import toast from "@/mixins/toasts";
 export default {
   mixins: [toast],
+  components: {
+    "History-Info": () => import("@/components/views/Modals/HistoryInfo")
+  },
   data() {
     return {
       baseData: [],
@@ -209,14 +157,6 @@ export default {
           });
           console.log(err);
         });
-    },
-    isMatchedNumber(drawNumbers, currentNumber) {
-      let isMatched = drawNumbers.some(number => number === currentNumber);
-      return isMatched;
-    },
-    resetInfoModal() {
-      this.infoModal.title = "";
-      this.infoModal.content = "";
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
