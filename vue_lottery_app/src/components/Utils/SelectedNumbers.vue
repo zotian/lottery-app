@@ -154,7 +154,7 @@ export default {
       this.addHistory(body)
         .then(() => {
           this.toast({
-            body: "History saved successfully!",
+            body: "Successfully added to history!",
             title: `Success`,
             variant: "success"
           });

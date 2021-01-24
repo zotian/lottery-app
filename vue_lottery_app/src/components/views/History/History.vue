@@ -152,7 +152,7 @@ export default {
       })
         .then(() => {
           this.toast({
-            body: `Bet at ${item.date} was deleted successfully!`,
+            body: `Bet from ${item.date} was deleted successfully!`,
             title: `Success`,
             variant: "success"
           });
