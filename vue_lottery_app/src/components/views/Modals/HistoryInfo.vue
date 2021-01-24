@@ -59,7 +59,7 @@
 <script>
 export default {
   props: {
-    infoModal:{
+    infoModal: {
       type: Object
     }
   },
@@ -67,11 +67,7 @@ export default {
     isMatchedNumber(drawNumbers, currentNumber) {
       let isMatched = drawNumbers.some(number => number === currentNumber);
       return isMatched;
-    },
+    }
   }
 };
 </script>
-
-<style lang="scss">
-@import "~@/scss/colors";
-</style>
