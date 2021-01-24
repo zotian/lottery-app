@@ -1,0 +1,30 @@
+@import '~@/scss/colors';
+.btn.btn-primary {
+    background-color: $mediumColor;
+    border-color: $mediumColor;
+  }
+  .btn.btn-primary:focus, .modal-footer .btn.btn-primary:active {
+    background-color: $mediumColor;
+    border-color: $mediumColor;
+    box-shadow: 0 0 5px 2px $mediumColor !important;
+  }
+  .btn.btn-success {
+    background-color: $greenColor;
+    border-color: $greenColor;
+    border-radius: 5px !important;
+  }
+  .btn.btn-success:focus, .modal-footer .btn.btn-success:active {
+    background-color: $greenColor;
+    border-color: $greenColor;
+    box-shadow: 0 0 5px 2px $greenColor !important;
+  }
+  .btn.btn-danger {
+    background-color: $redColor;
+    border-color: $redColor;
+    border-radius: 5px !important;
+  }
+  .btn.btn-danger:focus, .modal-footer .btn.btn-danger:active {
+    background-color: $redColor;
+    border-color: $redColor;
+    box-shadow: 0 0 5px 2px $redColor !important;
+  }

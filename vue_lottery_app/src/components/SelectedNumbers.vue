@@ -166,24 +166,25 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/scss/colors';
 .modal-footer .btn.btn-primary {
-  background-color: var(--greenColor);
-  border-color: var(--greenColor);
+  background-color: $greenColor;
+  border-color: $greenColor;
   border-radius: 5px !important;
 }
 .modal-footer .btn.btn-primary:focus, .modal-footer .btn.btn-primary:active {
-    background-color: var(--greenColor);
-    border-color: var(--greenColor);
-    box-shadow: 0 0 5px 2px var(--greenColor) !important;
+  background-color: $greenColor;
+  border-color: $greenColor;
+  box-shadow: 0 0 5px 2px $greenColor !important;
   }
 .modal-footer .btn.btn-secondary {
-  background-color: var(--yellowColor);
-  border-color: var(--yellowColor);
+  background-color: $yellowColor;
+  border-color: $yellowColor;
   border-radius: 5px !important;
 }
 .modal-footer .btn.btn-secondary:focus, .modal-footer .btn.btn-secondary:active {
-  background-color: var(--yellowColor);
-  border-color: var(--yellowColor);
-  box-shadow: 0 0 5px 2px var(--yellowColor) !important;
+  background-color: $yellowColor;
+  border-color: $yellowColor;
+  box-shadow: 0 0 5px 2px $yellowColor !important;
 }
 </style>

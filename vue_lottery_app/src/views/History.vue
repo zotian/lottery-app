@@ -198,6 +198,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/scss/colors';
 .grid {
   margin-top: 5vh;
 }
@@ -211,27 +212,27 @@ export default {
   color: #dd2727
 }
 .colorDimGrey {
-  color: var(--dimGrey)
+  color: $dimGrey
 }
 .pagination__main {
   width: 200px;
   margin-left: auto;
 }
 thead {
-  background-color: var(--lightColor);
+  background-color: $lightColor;
 }
 .table th, .table td {
   padding: 10px 5px !important;
 }
 .modal-footer .btn.btn-primary {
-  background-color: var(--yellowColor);
-  border-color: var(--yellowColor);
+  background-color: $yellowColor;
+  border-color: $yellowColor;
   border-radius: 5px !important;
 }
 .modal-footer .btn.btn-primary:focus, .modal-footer .btn.btn-primary:active {
-  background-color: var(--yellowColor);
-  border-color: var(--yellowColor);
-  box-shadow: 0 0 5px 2px var(--yellowColor) !important;
+  background-color: $yellowColor;
+  border-color: $yellowColor;
+  box-shadow: 0 0 5px 2px $yellowColor !important;
 }
 
 </style>

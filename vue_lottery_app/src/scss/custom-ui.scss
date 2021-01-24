@@ -1,0 +1,46 @@
+@import '~@/scss/colors';
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+.home {
+    margin-top: 10vh;
+  }
+  .flex {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .home__left {
+    width:45vw;
+    z-index: 2;
+    justify-content: center;
+    background:$lightColor !important;
+    color: $dimGrey;
+    border-radius: 5px;
+    padding: 50px;
+  }
+  .home__left div, .home__right div {
+    width: 100%;
+  }
+  .home__right {
+    width:45vw;
+    z-index: 2;
+    justify-content: center;
+    background:$lightColor !important;
+    color: $dimGrey;
+    border-radius: 5px;
+    padding: 50px;
+  }
+  @media (max-width: 800px) {
+    .home__left, .home__right {
+      width: 90vw
+    }
+    .home__left {
+      margin-bottom: 20px;
+    }
+  }

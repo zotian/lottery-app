@@ -64,11 +64,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~@/scss/colors';
   .bg-light {
-    background-color: var(--lightColor) !important;
+    background-color: $lightColor !important;
   }
   .nav-item a {
-    color: var(--dimGrey) !important;
+    color: $dimGrey !important;
   }
 </style>
