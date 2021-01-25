@@ -2,7 +2,7 @@
   <div class="container">
     <b-spinner
       v-if="isWaitingForResponse"
-      class="spinner_position"
+      class="spinner_history"
       variant="secondary"
       label="Spinning"
     ></b-spinner>
@@ -39,7 +39,7 @@
           <b-button
             variant="danger"
             size="sm"
-            @click="deleteBet(row.item)"
+            @click="deleteConfirmation(row.item)"
             class="mr-1"
           >
             Delete
@@ -65,7 +65,15 @@
       size="sm"
       class="my-0 pagination__main"
     ></b-pagination>
-    <History-Info :infoModal="infoModal"></History-Info>
+    <History-Info-Modal :infoModal="infoModal"></History-Info-Modal>
+    <Confirmation-Modal
+      modalTitle="Are you sure?"
+      okTitle="Yes"
+      cancelTitle="Cancel"
+      modalBody="This action is irreversible. Continue?"
+      id="historyConfirmModal"
+      @submitModal="deleteBet"
+    ></Confirmation-Modal>
   </div>
 </template>
 
@@ -76,7 +84,8 @@ import Toasts from "@/mixins/toasts";
 export default {
   mixins: [Toasts],
   components: {
-    "History-Info": () => import("@/components/views/Modals/HistoryInfo")
+    "History-Info-Modal": () => import("@/components/views/Modals/HistoryInfo"),
+    "Confirmation-Modal": () => import("@/components/Utils/ConfirmationModal")
   },
   data() {
     return {
@@ -118,7 +127,8 @@ export default {
         playerBet: [],
         status: "",
         totalAmountWon: ""
-      }
+      },
+      currentBetHistory: {}
     };
   },
   watch: {
@@ -144,13 +154,19 @@ export default {
       };
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
-    deleteBet(item) {
+    deleteConfirmation(item) {
+      this.$root.$emit("bv::show::modal", "historyConfirmModal");
+      this.currentBetHistory = item;
+    },
+    deleteBet() {
       this.deleteHistory({
         vm: this,
-        id: item.id
+        id: this.currentBetHistory.id
       })
         .then(() => {
-          this.successToast(`Bet from ${item.date} was deleted successfully!`);
+          this.successToast(
+            `Bet from ${this.currentBetHistory.date} was deleted successfully!`
+          );
         })
         .catch(err => {
           this.errorToast("Something went wrong!");
@@ -233,5 +249,10 @@ thead {
 .table th,
 .table td {
   padding: 10px 5px;
+}
+.spinner_history {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 </style>
