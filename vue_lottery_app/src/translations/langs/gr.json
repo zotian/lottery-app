@@ -1,3 +1,77 @@
 {
-  
+  "login": {
+    "signIn": "Σύνδεση",
+    "register": "Εγγραφή",
+    "registerNow": "Εγγραφή τώρα",
+    "emailAddress": "Ηλ.Διεύθυνση:",
+    "enterEmail": "Πρόσθεσε Ηλ.Διεύθυνση",
+    "password": "Κωδικός:",
+    "enterPassword": "Πρόσθεσε κωδικό"
+  },
+  "navigation": {
+    "home": "Αρχική",
+    "liveDraw": "Ζωντανή Κλήρωση",
+    "history": "Ιστορικό",
+    "logout": "Αποσύνδεση"
+  },
+  "home": {
+    "selectedNumbers": "Επιλεγμένοι αριθμοί",
+    "winningBet": "Κερδισμένο στοίχημα",
+    "loosingBet": "Χαμένο στοίχημα",
+    "totalWinningAmount": "Συνολικό κερδισμένο ποσό"
+  },
+  "liveDraw": {
+    "live": "ΖΩΝΤΑΝΑ",
+    "luckyNumbers": "Τυχεροί αριθμοί",
+    "modal": {
+      "totalWinningAmount": "Συνολικό κερδισμένο ποσό"
+    }
+  },
+  "history": {
+    "label": "Ιστορικό",
+    "betHistory": "Ιστορικό στοιχημάτων",
+    "drawNumbers": "Κληρωθέντες Αριθμοί",
+    "status": "Κατάσταση",
+    "amountWon": "Κερδισμένο ποσό",
+    "action": "Ενέργεια",
+    "won": "Κερδισμένο",
+    "lost": "Χαμένο",
+    "notification" :{
+      "success": "Το στοίχημα στις {date} διαγράφηκε επιτυχώς!"
+    },
+    "modal": {
+      "date": "Ημερομηνία",
+      "playerBet": "Στοίχημα παίχτη",
+      "totalAmountWon": "Συνολικό κερδισμένο ποσό"
+    }
+  },
+  "footer": {
+    "content": "Περιεχόμενο..."
+  },
+  "buttons": {
+    "success": "Επιτυχία",
+    "error": "Σφάλμα",
+    "cancel": "Ακύρωση",
+    "submit": "Υποβολή",
+    "delete": "Διαγραφή",
+    "yes": "Ναι",
+    "goBack": "Πίσω",
+    "showMore": "Περισσότερα",
+    "saveToHistory": "Αποθήκευση στο ιστορικό"
+  },
+  "modalsGeneral": {
+    "confirmation": "Είσαι σίγουρος;",
+    "irreversible": "Η ενέργεια αυτή είναι μη αναστρέψιμη. Συνέχεια;"
+  },
+  "toast":{ 
+    "success": {
+      "addToHistory": "Επιτυχής αποθύκευση στο ιστορικό!"
+    },
+    "error": {
+      "general": "Κάτι πήγε στραβά!",
+      "INVALID_EMAIL_FORMAT": "Μη έγκυρη μορφή Ηλ.Διεύθυνσης",
+      "EMAIL_REQUIRED": "Η Ηλ.Διεύθυνση είναι υποχρεωτική",
+      "WEAK_PASSWORD": "Ο κωδικός πρέπει να περιλαμβάνει τουλάχιστον 6 χαρακτήρες!"
+    }
+  }
 }
