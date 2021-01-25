@@ -9,7 +9,7 @@
         <NumberButton :number="number" :disabled="true"></NumberButton>
         <b-button
           v-if="action !== 'live'"
-          style="margin-left:10px;"
+          class="ml-10"
           variant="outline-danger"
           :pill="true"
           @click="removeNumber(number)"
@@ -19,7 +19,7 @@
         <span v-else>
           <b-icon
             v-if="isWinningNumber({ number })"
-            style="margin-left:10px;"
+            class="ml-10"
             icon="check-square"
             variant="success"
             scale="2"
@@ -38,7 +38,7 @@
     </div>
     <div v-else class="mt-4">
       <div v-if="matchedNumbers > 2">
-        <h4 style="color:green;">Winning Bet</h4>
+        <h4 class="colorGreen">Winning Bet</h4>
         <div>
           <span>Total winning amount: {{ winningAmmount }}</span>
         </div>
@@ -177,4 +177,12 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import "~@/scss/colors";
+.ml-10 {
+  margin-left: 10px;
+}
+.colorGreen {
+  color: $greenColor;
+}
+</style>

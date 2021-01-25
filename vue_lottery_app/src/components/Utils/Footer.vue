@@ -2,13 +2,19 @@
   <div class="footer">
     <ul class="footer_ul">
       <li>
-        <p style="padding-top:10px; margin:0;">Footer Content</p>
+        <p class="footer_a">
+          Footer Content
+        </p>
       </li>
       <li>
-        <p style="padding-top:10px; margin:0;">Footer Content</p>
+        <p class="footer_a">
+          Footer Content
+        </p>
       </li>
       <li>
-        <p style="padding-top:10px; margin:0;">&#169; Vasilis Zotos</p>
+        <p class="footer_a">
+          &#169; Vasilis Zotos
+        </p>
       </li>
     </ul>
   </div>
@@ -32,14 +38,18 @@ export default {};
   text-align: center;
   height: 10vh;
   display: flex;
-}
-.footer_ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  .footer_ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .footer_a {
+      padding-top: 10px;
+      margin: 0;
+    }
+  }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <b-button
     :class="{ number__button: true, active__number: isActiveNumber }"
-    style="width: 50px;"
     pill
     :variant="variant"
     :value="number"

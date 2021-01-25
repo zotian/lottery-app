@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="light" style="height:100%">
+    <b-navbar toggleable="lg" type="light" variant="light" class="height100">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
@@ -20,7 +20,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
             <template #button-content>
-              <b-avatar style="margin-right:20px;"></b-avatar>
+              <b-avatar class="mr-20"></b-avatar>
               <span class="mr-3">{{ userEmail }}</span>
             </template>
             <b-dropdown-item
@@ -87,5 +87,8 @@ export default {
 }
 .nav-item .linkColor a {
   color: black !important;
+}
+.mr-20 {
+  margin-right: 20px;
 }
 </style>
