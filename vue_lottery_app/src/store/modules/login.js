@@ -47,7 +47,7 @@ const actions = {
 };
 // const checkExpiredToken = (commit) => {
 //   const refreshToken = JSON.parse(localStorage.getItem('loginData')).refreshToken
-//   const idToken = SON.parse(localStorage.getItem('loginData')).idToken
+//   const idToken = JSON.parse(localStorage.getItem('loginData')).idToken
 //   if (!idToken) {
 //     commit('LOGOUT', {vm:this})
 //   } else {
@@ -72,7 +72,7 @@ const actions = {
 //         .catch(err => {
 //           console.log(err)
 //         })
-//   }, 10000)
+//   }, expirationDate)
 // }
 
 export default {

@@ -51,9 +51,10 @@
 
 <script>
 import { mapActions } from "vuex";
-import toast from "@/mixins/toasts";
+import Toasts from "@/mixins/toasts";
+import { isValidEmail, isEmptyField } from "@/common-js/Validations";
 export default {
-  mixins: [toast],
+  mixins: [Toasts],
   props: {
     title: {
       type: String
@@ -78,6 +79,13 @@ export default {
       loginRegister: "login/loginRegister"
     }),
     submit() {
+      if (!isValidEmail(this.form.email)) {
+        return this.errorToast("Invalid Email Format!");
+      }
+      if (isEmptyField(this.form.password)) {
+        this.form.password = "";
+        return this.errorToast("Password is Empty.");
+      }
       const payload = {
         vm: this,
         formData: this.form,
@@ -89,11 +97,7 @@ export default {
           this.$router.push("/");
         })
         .catch(err => {
-          this.toast({
-            body: "Invalid Email addrress or Password!",
-            title: `Error`,
-            variant: "danger"
-          });
+          this.errorToast("Invalid Email addrress or Password!");
           console.log(err);
         });
     }

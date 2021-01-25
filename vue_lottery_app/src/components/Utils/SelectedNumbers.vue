@@ -59,9 +59,9 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import toast from "@/mixins/toasts";
+import Toasts from "@/mixins/toasts";
 export default {
-  mixins: [toast],
+  mixins: [Toasts],
   props: {
     action: {
       type: String,
@@ -153,22 +153,14 @@ export default {
       };
       this.addHistory(body)
         .then(() => {
-          this.toast({
-            body: "Successfully added to history!",
-            title: `Success`,
-            variant: "success"
-          });
+          this.successToast("Successfully added to history!");
           setTimeout(() => {
             this.$router.push("/");
           }, 1500);
           this.toggleLiveStatus(false);
         })
         .catch(err => {
-          this.toast({
-            body: "Something went wrong!",
-            title: `Error`,
-            variant: "error"
-          });
+          this.errorToast("Something went wrong!");
           console.log(err);
         });
     },

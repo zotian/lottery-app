@@ -72,9 +72,9 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { convertTimeStamp } from "@/common-js/timeConverts";
-import toast from "@/mixins/toasts";
+import Toasts from "@/mixins/toasts";
 export default {
-  mixins: [toast],
+  mixins: [Toasts],
   components: {
     "History-Info": () => import("@/components/views/Modals/HistoryInfo")
   },
@@ -145,24 +145,15 @@ export default {
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
     deleteBet(item) {
-      console.log(item);
       this.deleteHistory({
         vm: this,
         id: item.id
       })
         .then(() => {
-          this.toast({
-            body: `Bet from ${item.date} was deleted successfully!`,
-            title: `Success`,
-            variant: "success"
-          });
+          this.successToast(`Bet from ${item.date} was deleted successfully!`);
         })
         .catch(err => {
-          this.toast({
-            body: "Something went wrong!",
-            title: `Error`,
-            variant: "danger"
-          });
+          this.errorToast("Something went wrong!");
           console.log(err);
         });
     },
@@ -203,10 +194,14 @@ export default {
   },
   created() {
     this.isWaitingForResponse = true;
-    this.getAllHistoryBets({ vm: this }).then(() => {
-      this.isWaitingForResponse = false;
-      this.mapData();
-    });
+    this.getAllHistoryBets({ vm: this })
+      .then(() => {
+        this.isWaitingForResponse = false;
+        this.mapData();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
