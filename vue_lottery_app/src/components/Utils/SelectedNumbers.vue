@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Selected Numbers</h4>
+    <h4>{{ $t("home.selectedNumbers") }}</h4>
     <div>
       <div
         v-for="(number, index) in selectedNumbers"
@@ -33,14 +33,14 @@
         squared
         variant="success"
         @click="submitBet"
-        >Submit</b-button
+        >{{ $t("buttons.submit") }}</b-button
       >
     </div>
     <div v-else class="mt-4">
       <div v-if="matchedNumbers > 2">
-        <h4 class="colorGreen">Winning Bet</h4>
+        <h4 class="colorGreen">{{ $t("home.winningBet") }}</h4>
         <div>
-          <span>Total winning amount: {{ winningAmmount }}</span>
+          <span>{{ $t("home.totalWinningAmount") }}: {{ winningAmmount }}</span>
         </div>
       </div>
     </div>
@@ -119,9 +119,9 @@ export default {
     },
     modalTitle() {
       if (this.matchedNumbers > 2) {
-        return "Winning Bet";
+        return this.$t("home.winningBet");
       }
-      return "Loosing Bet";
+      return this.$t("home.loosingBet");
     },
     isDisabled() {
       return this.selectedNumbers.length !== 5;
@@ -153,14 +153,14 @@ export default {
       };
       this.addHistory(body)
         .then(() => {
-          this.successToast("Successfully added to history!");
+          this.successToast(this.$t("toast.success.addToHistory"));
           setTimeout(() => {
             this.$router.push("/");
           }, 1500);
           this.toggleLiveStatus(false);
         })
         .catch(err => {
-          this.errorToast("Something went wrong!");
+          this.errorToast(this.$t("toast.error.general"));
           console.log(err);
         });
     },

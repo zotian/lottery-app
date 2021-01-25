@@ -4,16 +4,16 @@
     :id="infoModal.id"
     :title="infoModal.title"
     ok-only
-    ok-title="Go back"
+    :ok-title="$t('buttons.goBack')"
     :no-close-on-esc="false"
     :no-close-on-backdrop="true"
   >
     <div class="colorDimGrey">
       <p>
-        Date: <span class="fontBold">{{ infoModal.date }}</span>
+        {{ $t("history.modal.date") }}: <span class="fontBold">{{ infoModal.date }}</span>
       </p>
       <p>
-        Draw Numbers:
+       {{ $t("history.drawNumbers") }}:
         <span
           class="fontBold"
           v-for="number in infoModal.drawNumbers"
@@ -22,7 +22,7 @@
         </span>
       </p>
       <p>
-        Player's Bet:
+        {{ $t("history.modal.playerBet") }}:
         <span
           class="fontBold"
           v-for="number in infoModal.playerBet"
@@ -37,7 +37,7 @@
         </span>
       </p>
       <p>
-        Status:
+        {{ $t("history.status") }}:
         <span
           :class="{
             fontBold: true,
@@ -49,7 +49,7 @@
         </span>
       </p>
       <p>
-        Total Amount Won:
+        {{ $t("history.modal.totalAmountWon") }}:
         <span class="fontBold">{{ infoModal.totalAmountWon }}</span>
       </p>
     </div>

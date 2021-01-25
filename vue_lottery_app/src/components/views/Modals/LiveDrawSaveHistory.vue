@@ -4,15 +4,17 @@
     :title="modalTitle"
     ok-variant="success"
     cancel-variant="warning"
-    ok-title="Save to History"
-    cancel-title="Go back"
+    :ok-title="$t('buttons.saveToHistory')"
+    :cancel-title="$t('buttons.goBack')"
     :no-close-on-esc="true"
     :no-close-on-backdrop="true"
     @ok="$emit('saveHistory')"
     @cancel="$emit('returnToHome')"
     @close="$emit('returnToHome')"
   >
-    <p class="my-4">Total winning amount: {{ winningAmmount }}</p>
+    <p class="my-4">
+      {{ $t("liveDraw.modal.totalWinningAmount") }}: {{ winningAmmount }}
+    </p>
   </b-modal>
 </template>
 

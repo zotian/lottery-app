@@ -8,12 +8,12 @@
             :disabled="isHomeDisabled"
             @click="handleRouterChange('/')"
           >
-            Home</b-nav-item
+            {{ $t("navigation.home") }}</b-nav-item
           >
           <b-nav-item
             :disabled="isLiveDrawDisabled"
             @click="handleRouterChange('/live-draw')"
-            >Live Draw</b-nav-item
+            >{{ $t("navigation.liveDraw") }}</b-nav-item
           >
         </b-navbar-nav>
 
@@ -26,12 +26,12 @@
             <b-dropdown-item
               class="linkColor"
               @click="handleRouterChange('/history')"
-              >History</b-dropdown-item
+              >{{ $t("navigation.history") }}</b-dropdown-item
             >
           </b-nav-item-dropdown>
           <b-nav-item>
             <b-button variant="danger" @click="logout">
-              <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+              <b-icon icon="power" aria-hidden="true"></b-icon> {{ $t("navigation.logout") }}
             </b-button>
           </b-nav-item>
         </b-navbar-nav>

@@ -3,12 +3,12 @@
     <ul class="footer_ul">
       <li>
         <p class="footer_a">
-          Footer Content
+          {{ $t("footer.content") }}
         </p>
       </li>
       <li>
         <p class="footer_a">
-          Footer Content
+          {{ $t("footer.content") }}
         </p>
       </li>
       <li>

@@ -7,7 +7,7 @@
       label="Spinning"
     ></b-spinner>
     <div class="grid">
-      <h4>Bet History</h4>
+      <h4>{{ $t("history.betHistory") }}</h4>
       <b-table
         :items="baseData"
         :fields="fields"
@@ -34,7 +34,7 @@
             @click="info(row.item, row.index, $event.target)"
             class="mr-1"
           >
-            Show More
+            {{ $t("buttons.showMore") }}
           </b-button>
           <b-button
             variant="danger"
@@ -42,7 +42,7 @@
             @click="deleteConfirmation(row.item)"
             class="mr-1"
           >
-            Delete
+            {{ $t("buttons.delete") }}
           </b-button>
         </template>
 
@@ -67,10 +67,10 @@
     ></b-pagination>
     <History-Info-Modal :infoModal="infoModal"></History-Info-Modal>
     <Confirmation-Modal
-      modalTitle="Are you sure?"
-      okTitle="Yes"
-      cancelTitle="Cancel"
-      modalBody="This action is irreversible. Continue?"
+      :modalTitle="$t('modalsGeneral.confirmation')"
+      :okTitle="$t('buttons.yes')"
+      :cancelTitle="$t('buttons.cancel')"
+      :modalBody="$t('modalsGeneral.irreversible')"
       id="historyConfirmModal"
       @submitModal="deleteBet"
     ></Confirmation-Modal>
@@ -94,23 +94,23 @@ export default {
       fields: [
         {
           key: "drawNumbers",
-          label: "Draw Numbers",
+          label: this.$t("history.drawNumbers"),
           sortable: true,
           sortDirection: "desc"
         },
         {
           key: "status",
-          label: "Status",
+          label: this.$t("history.status"),
           sortable: true,
           sortDirection: "desc"
         },
         {
           key: "totalAmountWon",
-          label: "Amount Won",
+          label: this.$t("history.amountWon"),
           sortable: true,
           class: "text-center"
         },
-        { key: "actions", label: "Action" }
+        { key: "actions", label: this.$t("history.action") }
       ],
       totalRows: 1,
       currentPage: 1,
@@ -150,7 +150,7 @@ export default {
       this.infoModal = {
         ...item,
         id: "info-modal",
-        title: "History"
+        title: this.$t("history.label")
       };
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
@@ -165,11 +165,13 @@ export default {
       })
         .then(() => {
           this.successToast(
-            `Bet from ${this.currentBetHistory.date} was deleted successfully!`
+            this.$t("history.notification.success", {
+              date: this.currentBetHistory.date
+            })
           );
         })
         .catch(err => {
-          this.errorToast("Something went wrong!");
+          this.errorToast(this.$t("toast.error.general"));
           console.log(err);
         });
     },
@@ -179,15 +181,15 @@ export default {
     },
     addStatus(totalAmountWon) {
       if (totalAmountWon && Number(totalAmountWon) !== 0) {
-        return "Won";
+        return this.$t("history.won");
       } else {
-        return "Lost";
+        return this.$t("history.lost");
       }
     },
     rowClass(item, type) {
       if (!item || type !== "row") return;
-      if (item.status === "Won") return "table-success";
-      if (item.status === "Lost") return "table-danger";
+      if (item.totalAmountWon && Number(item.totalAmountWon) !== 0) return "table-success";
+      if (!item.totalAmountWon || Number(item.totalAmountWon) === 0) return "table-danger";
     },
     mapData() {
       this.baseData = JSON.parse(JSON.stringify(this.historyBets)).reduce(

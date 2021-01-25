@@ -10,14 +10,14 @@ const Toasts = {
     },
     successToast(textBody) {
       this.$bvToast.toast(textBody, {
-        title: "Success",
+        title: this.$t("buttons.success"),
         variant: "success",
         solid: true
       });
     },
     errorToast(textBody) {
       this.$bvToast.toast(textBody, {
-        title: "Error",
+        title: this.$t("buttons.error"),
         variant: "danger",
         solid: true
       });

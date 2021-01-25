@@ -1,0 +1,77 @@
+{
+  "login": {
+    "signIn": "Sign in",
+    "register": "Register",
+    "registerNow": "Register now",
+    "emailAddress": "Email address:",
+    "enterEmail": "Enter email",
+    "password": "Password:",
+    "enterPassword": "Enter password"
+  },
+  "navigation": {
+    "home": "Home",
+    "liveDraw": "Live Draw",
+    "history": "History",
+    "logout": "Logout"
+  },
+  "home": {
+    "selectedNumbers": "Selected Numbers",
+    "winningBet": "Winning Bet",
+    "loosingBet": "Loosing Bet",
+    "totalWinningAmount": "Total winning amount"
+  },
+  "liveDraw": {
+    "live": "LIVE",
+    "luckyNumbers": "Lucky Numbers",
+    "modal": {
+      "totalWinningAmount": "Total winning amount"
+    }
+  },
+  "history": {
+    "label": "History",
+    "betHistory": "Bet History",
+    "drawNumbers": "Draw Numbers",
+    "status": "Status",
+    "amountWon": "Amount Won",
+    "action": "Action",
+    "won": "Won",
+    "lost": "Lost",
+    "notification" :{
+      "success": "Bet from {date} was deleted successfully!"
+    },
+    "modal": {
+      "date": "Date",
+      "playerBet": "Player's bet",
+      "totalAmountWon": "Total amount won"
+    }
+  },
+  "footer": {
+    "content": "Footer content"
+  },
+  "buttons": {
+    "success": "Success",
+    "error": "Error",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "delete": "Delete",
+    "yes": "Yes",
+    "goBack": "Go back",
+    "showMore": "Show more",
+    "saveToHistory": "Save to history"
+  },
+  "modalsGeneral": {
+    "confirmation": "Are you sure?",
+    "irreversible": "This action is irreversible. Continue?"
+  },
+  "toast":{ 
+    "success": {
+      "addToHistory": "Successfully added to history!"
+    },
+    "error": {
+      "general": "Something went wrong!",
+      "INVALID_EMAIL_FORMAT": "Invalid email format",
+      "EMAIL_REQUIRED": "Email is required",
+      "WEAK_PASSWORD": "Password should be at least 6 characters!"
+    }
+  }
+}

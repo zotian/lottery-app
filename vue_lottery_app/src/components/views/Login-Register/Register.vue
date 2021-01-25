@@ -1,9 +1,9 @@
 <template>
   <LoginRegister
-    title="Register"
+    :title="$t('login.register')"
     action="register"
     alternativeAction="/login"
-    alternativeActionText="Login"
+    :alternativeActionText="$t('login.signIn')"
   >
   </LoginRegister>
 </template>

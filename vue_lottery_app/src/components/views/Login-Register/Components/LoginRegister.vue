@@ -5,7 +5,7 @@
         <b-form>
           <b-form-group
             id="email"
-            label="Email address:"
+            :label="$t('login.emailAddress')"
             label-for="input-1"
             label-align-sm="right"
             label-cols-sm="4"
@@ -13,12 +13,12 @@
             <b-form-input
               id="input-1"
               v-model="form.email"
-              placeholder="Enter email"
+              :placeholder="$t('login.enterEmail')"
             ></b-form-input>
           </b-form-group>
           <b-form-group
             id="password"
-            label="Password:"
+            :label="$t('login.password')"
             label-for="input-2"
             label-align-sm="right"
             label-cols-sm="4"
@@ -27,13 +27,11 @@
               id="input-2"
               v-model="form.password"
               type="password"
-              placeholder="Enter Password"
+              :placeholder="$t('login.enterPassword')"
             ></b-form-input>
           </b-form-group>
 
-          <b-button @click.prevent="submit" type="submit" variant="primary"
-            >Submit</b-button
-          >
+          <b-button @click.prevent="submit" type="submit" variant="primary">{{ $t("buttons.submit") }}</b-button>
         </b-form>
       </b-card-text>
 
@@ -95,7 +93,7 @@ export default {
             });
         })
         .catch(err => {
-          this.errorToast(getToastMessage(err));
+          this.errorToast(this.$t(`toast.error.${err}`));
         });
     },
     validateFields() {

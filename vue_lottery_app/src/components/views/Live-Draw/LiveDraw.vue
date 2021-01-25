@@ -1,6 +1,6 @@
 <template>
   <div class="home flex">
-    <span class="spinner_label_position">LIVE</span>
+    <span class="spinner_label_position">{{ $t("liveDraw.live") }}</span>
     <b-spinner
       v-if="isLive"
       class="spinner_position"
@@ -9,7 +9,7 @@
       label="Spinning"
     ></b-spinner>
     <div class="home__left flex">
-      <h4>Lucky Numbers</h4>
+      <h4>{{ $t("liveDraw.luckyNumbers") }}</h4>
       <div class="numbers__board">
         <span
           v-for="(number, index) in lotteryNumbers"

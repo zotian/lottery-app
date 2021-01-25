@@ -5,7 +5,7 @@
     ok-variant="primary"
     cancel-variant=" "
     :ok-title="okTitle"
-    cancel-title="Cancel"
+    :cancel-title="$t('buttons.cancel')"
     @ok="$emit('submitModal')"
   >
     <p class="my-4">{{ modalBody }}</p>
