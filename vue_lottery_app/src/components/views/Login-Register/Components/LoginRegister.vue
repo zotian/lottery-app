@@ -13,9 +13,7 @@
             <b-form-input
               id="input-1"
               v-model="form.email"
-              type="email"
               placeholder="Enter email"
-              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -30,7 +28,6 @@
               v-model="form.password"
               type="password"
               placeholder="Enter Password"
-              required
             ></b-form-input>
           </b-form-group>
 
@@ -51,6 +48,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { getToastMessage } from "@/common-js/ToastMessages";
 import Toasts from "@/mixins/toasts";
 import { isValidEmail, isEmptyField } from "@/common-js/Validations";
 export default {
@@ -79,27 +77,44 @@ export default {
       loginRegister: "login/loginRegister"
     }),
     submit() {
-      if (!isValidEmail(this.form.email)) {
-        return this.errorToast("Invalid Email Format!");
-      }
-      if (isEmptyField(this.form.password)) {
-        this.form.password = "";
-        return this.errorToast("Password is Empty.");
-      }
-      const payload = {
-        vm: this,
-        formData: this.form,
-        returnSecureToken: true,
-        action: this.$route.path === "/login" ? "login" : "register"
-      };
-      this.loginRegister(payload)
+      this.validateFields()
         .then(() => {
-          this.$router.push("/");
+          const payload = {
+            vm: this,
+            formData: this.form,
+            returnSecureToken: true,
+            action: this.$route.path === "/login" ? "login" : "register"
+          };
+          this.loginRegister(payload)
+            .then(() => {
+              this.$router.push("/");
+            })
+            .catch(error => {
+              const errorMsg = error.err.response.data.error.message;
+              this.errorToast(getToastMessage(errorMsg));
+            });
         })
         .catch(err => {
-          this.errorToast("Invalid Email addrress or Password!");
-          console.log(err);
+          this.errorToast(getToastMessage(err));
         });
+    },
+    validateFields() {
+      return new Promise((resolve, reject) => {
+        if (isEmptyField(this.form.email)) {
+          this.form.email = "";
+          reject("EMAIL_REQUIRED");
+        } else if (!isValidEmail(this.form.email)) {
+          reject("INVALID_EMAIL_FORMAT");
+        } else if (
+          isEmptyField(this.form.password) ||
+          this.form.password.length < 6
+        ) {
+          this.form.password = "";
+          reject("WEAK_PASSWORD");
+        } else {
+          resolve("validFields");
+        }
+      });
     }
   }
 };

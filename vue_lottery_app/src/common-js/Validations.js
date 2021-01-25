@@ -7,10 +7,7 @@ const isValidEmail = email => {
 };
 
 const isEmptyField = input => {
-  if (!input.replace(/\s/g, "").length) {
-    return true;
-  }
-  return false;
+  return !input.replace(/\s/g, "").length;
 };
 
 export { isValidEmail, isEmptyField };
