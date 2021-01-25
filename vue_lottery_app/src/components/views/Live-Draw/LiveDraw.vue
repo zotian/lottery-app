@@ -1,13 +1,16 @@
 <template>
   <div class="home flex">
     <span class="spinner_label_position">{{ $t("liveDraw.live") }}</span>
-    <b-spinner
-      v-if="isLive"
-      class="spinner_position"
-      variant="success"
-      type="grow"
-      label="Spinning"
-    ></b-spinner>
+    <span class="spinner_icon_position">
+      <b-spinner
+        v-if="isLive"
+        small
+        variant="success"
+        type="grow"
+        label="Spinning"
+      ></b-spinner
+    ></span>
+
     <div class="home__left flex">
       <h4>{{ $t("liveDraw.luckyNumbers") }}</h4>
       <div class="numbers__board">
@@ -110,10 +113,10 @@ export default {
 };
 </script>
 <style lang="scss">
-.spinner_position {
+.spinner_icon_position {
   position: absolute;
-  top: 10%;
-  left: 49%;
+  top: 8%;
+  left: 48%;
 }
 .spinner_label_position {
   font-size: 18px;
