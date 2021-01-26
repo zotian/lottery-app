@@ -144,7 +144,7 @@ export default {
   }
 }
 .login-image {
-  background: url("~@/assets/background-login.jpg") no-repeat;
+  background: url("~@/assets//images/background-login.jpg") no-repeat;
   background-size: cover;
 }
 .card-body {
