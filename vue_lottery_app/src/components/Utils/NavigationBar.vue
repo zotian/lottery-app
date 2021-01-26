@@ -1,6 +1,11 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="light" class="height100">
+    <b-navbar
+      toggleable="lg"
+      type="light"
+      variant="light"
+      class="height100 navigation_main"
+    >
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
@@ -16,25 +21,23 @@
             >{{ $t("navigation.liveDraw") }}</b-nav-item
           >
         </b-navbar-nav>
-
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <b-avatar class="mr-20"></b-avatar>
-              <span class="mr-3">{{ userEmail }}</span>
-            </template>
+        <Language-Select :userEmail="userEmail" :fromNavBar="true">
+          <template v-slot:history>
             <b-dropdown-item
               class="linkColor"
               @click="handleRouterChange('/history')"
               >{{ $t("navigation.history") }}</b-dropdown-item
             >
-          </b-nav-item-dropdown>
-          <b-nav-item>
-            <b-button variant="danger" @click="logout">
-              <b-icon icon="power" aria-hidden="true"></b-icon> {{ $t("navigation.logout") }}
-            </b-button>
-          </b-nav-item>
-        </b-navbar-nav>
+          </template>
+          <template v-slot:logout>
+            <b-nav-item>
+              <b-button variant="danger" @click="logout">
+                <b-icon icon="power" aria-hidden="true"></b-icon>
+                {{ $t("navigation.logout") }}
+              </b-button>
+            </b-nav-item>
+          </template>
+        </Language-Select>
       </b-collapse>
     </b-navbar>
   </div>
@@ -44,9 +47,13 @@
 import { resetState } from "@/store";
 import { mapState } from "vuex";
 export default {
+  components: {
+    "Language-Select": () => import("@/components/Utils/LanguageSelect")
+  },
   data() {
     return {
-      userEmail: null
+      userEmail: null,
+      language: localStorage.getItem("lang") || "en"
     };
   },
   methods: {
@@ -54,6 +61,11 @@ export default {
       resetState();
       localStorage.removeItem("loginData");
       this.$router.push("/login");
+    },
+    setLanguage(lang) {
+      this.$i18n.locale = lang;
+      this.language = lang;
+      localStorage.setItem("lang", lang);
     },
     handleRouterChange(path) {
       if (this.$route.path === path) {
@@ -79,16 +91,20 @@ export default {
 
 <style lang="scss">
 @import "~@/scss/colors";
-.bg-light {
-  background-color: $darkBlue !important;
-}
-.nav-item a {
-  color: white !important;
-}
-.nav-item .linkColor a {
-  color: black !important;
-}
-.mr-20 {
-  margin-right: 20px;
+.navigation_main {
+  &.bg-light {
+    background-color: $darkBlue !important;
+  }
+  .nav-item a {
+    color: white !important;
+  }
+  .nav-item .linkColor a {
+    color: black !important;
+    font-weight: bold;
+    text-align: center;
+  }
+  .mr-14 {
+    margin-right: 14px;
+  }
 }
 </style>

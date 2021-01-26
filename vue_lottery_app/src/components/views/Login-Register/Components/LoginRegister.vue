@@ -1,7 +1,8 @@
 <template>
-  <div class="main__login">
-    <b-card :title="title" class="mb-2">
-      <b-card-text>
+  <div>
+    <div class="frosted login-image"></div>
+    <b-card :title="title" class="content">
+      <b-card-text class="mb-0">
         <b-form>
           <b-form-group
             id="email"
@@ -31,10 +32,12 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-button @click.prevent="submit" type="submit" variant="primary">{{ $t("buttons.submit") }}</b-button>
+          <b-button @click.prevent="submit" type="submit" variant="primary">{{
+            $t("buttons.submit")
+          }}</b-button>
         </b-form>
       </b-card-text>
-
+      <Language-Select></Language-Select>
       <a href="" class="alternativeAction">
         <router-link :to="alternativeAction">{{
           alternativeActionText
@@ -50,6 +53,9 @@ import { getToastMessage } from "@/common-js/ToastMessages";
 import Toasts from "@/mixins/toasts";
 import { isValidEmail, isEmptyField } from "@/common-js/Validations";
 export default {
+  components: {
+    "Language-Select": () => import("@/components/Utils/LanguageSelect")
+  },
   mixins: [Toasts],
   props: {
     title: {
@@ -119,14 +125,37 @@ export default {
 </script>
 
 <style lang="scss">
-.main__login {
+@import "~@/scss/colors";
+.frosted {
+  position: fixed;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  background-color: $bluegrey;
+  + .content {
+    position: fixed;
+    left: 0;
+    height: 100%;
+    right: 0;
+    z-index: 2;
+    background-color: transparentize($lightGrey, 0.5);
+  }
+}
+.login-image {
+  background: url("~@/assets/background-login.jpg") no-repeat;
+  background-size: cover;
+}
+.card-body {
   position: absolute;
+  background-color: white;
   min-width: 450px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 0px 0px 1px rgba(250, 255, 255, 0.5),
-    3px 2px 5px 0px rgba(250, 255, 255, 0.5);
+    3px 2px 5px 0px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
   .alternativeAction {
     position: absolute;

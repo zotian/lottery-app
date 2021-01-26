@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div :class="{ background: isLogin, background2: isMain }"></div>
-    <transition name="fade" mode="out-in">
-      <router-view :class="{ fixedHeight: isMain }" />
-    </transition>
+    <router-view :class="{ fixedHeight: isMain }" />
     <Footer
       v-if="$route.path !== '/login' && $route.path !== '/register'"
     ></Footer>
@@ -45,21 +42,5 @@ export default {
   color: $dimGrey;
   height: 100vh;
   background-color: white;
-}
-.background:before {
-  width: 100vw;
-  content: " ";
-  background-image: url("./assets/background-login.jpg");
-  background-position: center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  height: 100vh;
-  filter: blur(3px);
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.background2:before {
-  content: none;
 }
 </style>
