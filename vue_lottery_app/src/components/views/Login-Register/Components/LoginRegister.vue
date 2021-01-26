@@ -91,7 +91,14 @@ export default {
           };
           this.loginRegister(payload)
             .then(() => {
-              this.$router.push("/");
+              if (this.$route.path === "/register") {
+                this.$router.push("/login");
+                setTimeout(() => {
+                  this.successToast(this.$t("login.successRegister"));
+                }, 100);
+              } else {
+                this.$router.push("/");
+              }
             })
             .catch(error => {
               const message = this.handleServerError(error);
@@ -123,9 +130,9 @@ export default {
     handleServerError(error) {
       const errorMsg = error.err.response.data.error.message;
       let errorObj = {
-        "EMAIL_NOT_FOUND": `EMAIL_NOT_FOUND`,
-        "INVALID_PASSWORD": `INVALID_PASSWORD`,
-        "EMAIL_EXISTS": `EMAIL_EXISTS`
+        EMAIL_NOT_FOUND: `EMAIL_NOT_FOUND`,
+        INVALID_PASSWORD: `INVALID_PASSWORD`,
+        EMAIL_EXISTS: `EMAIL_EXISTS`
       };
       return Object.prototype.hasOwnProperty.call(errorObj, errorMsg)
         ? this.$t(`toast.error.${errorObj[errorMsg]}`)

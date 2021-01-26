@@ -6,7 +6,8 @@
     "emailAddress": "Ηλ.Διεύθυνση:",
     "enterEmail": "Πρόσθεσε Ηλ.Διεύθυνση",
     "password": "Κωδικός:",
-    "enterPassword": "Πρόσθεσε κωδικό"
+    "enterPassword": "Πρόσθεσε κωδικό",
+    "successRegister": "Ο λογαριασμός σας δημιουργήθηκε με επυτιχία!"
   },
   "navigation": {
     "home": "Αρχική",
