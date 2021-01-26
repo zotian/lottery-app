@@ -175,10 +175,6 @@ export default {
           console.log(err);
         });
     },
-    onFiltered(filteredItems) {
-      this.totalRows = filteredItems.length;
-      this.currentPage = 1;
-    },
     addStatus(totalAmountWon) {
       if (totalAmountWon && Number(totalAmountWon) !== 0) {
         return this.$t("history.won");
