@@ -1,4 +1,4 @@
-<b>Fullstack Lottery Game web application</b>
+<b>Responsive Fullstack Lottery Game web application</b>
 
 Registered users can create a bet of 5 numbers from a board of 30 numbers.
 After bet submission the user is navigated to the "Live Draw" page where he/she can see
