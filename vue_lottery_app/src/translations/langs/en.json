@@ -71,7 +71,10 @@
       "general": "Something went wrong!",
       "INVALID_EMAIL_FORMAT": "Invalid email format",
       "EMAIL_REQUIRED": "Email is required",
-      "WEAK_PASSWORD": "Password should be at least 6 characters!"
+      "WEAK_PASSWORD": "Password should be at least 6 characters!",
+      "EMAIL_NOT_FOUND": "Email not found!",
+      "INVALID_PASSWORD": "Invalid password",
+      "EMAIL_EXISTS": "This email already exists!"
     }
   }
 }

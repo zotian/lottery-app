@@ -49,7 +49,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { getToastMessage } from "@/common-js/ToastMessages";
+// import { getToastMessage } from "@/common-js/ToastMessages";
 import Toasts from "@/mixins/toasts";
 import { isValidEmail, isEmptyField } from "@/common-js/Validations";
 export default {
@@ -94,8 +94,8 @@ export default {
               this.$router.push("/");
             })
             .catch(error => {
-              const errorMsg = error.err.response.data.error.message;
-              this.errorToast(getToastMessage(errorMsg));
+              const message = this.handleServerError(error);
+              this.errorToast(message);
             });
         })
         .catch(err => {
@@ -119,6 +119,17 @@ export default {
           resolve("validFields");
         }
       });
+    },
+    handleServerError(error) {
+      const errorMsg = error.err.response.data.error.message;
+      let errorObj = {
+        "EMAIL_NOT_FOUND": `EMAIL_NOT_FOUND`,
+        "INVALID_PASSWORD": `INVALID_PASSWORD`,
+        "EMAIL_EXISTS": `EMAIL_EXISTS`
+      };
+      return Object.prototype.hasOwnProperty.call(errorObj, errorMsg)
+        ? this.$t(`toast.error.${errorObj[errorMsg]}`)
+        : errorMsg;
     }
   }
 };

@@ -54,6 +54,9 @@ export default {
       this.language = lang;
       localStorage.setItem("lang", lang);
     }
+  },
+  created() {
+    this.$i18n.locale = this.language;
   }
 };
 </script>

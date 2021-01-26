@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <router-view :class="{ fixedHeight: isMain }" />
-    <Footer
-      v-if="$route.path !== '/login' && $route.path !== '/register'"
-    ></Footer>
+    <Footer v-if="isMain"></Footer>
   </div>
 </template>
 
