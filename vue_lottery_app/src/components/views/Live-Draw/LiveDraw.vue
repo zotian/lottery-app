@@ -75,7 +75,7 @@ export default {
             clearInterval(this.intervalid);
           }
         }.bind(this),
-        114000
+        4000
       );
     },
     handleGenerateNumbers() {
