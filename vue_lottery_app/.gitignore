@@ -2,6 +2,12 @@
 node_modules
 /dist
 .env
+.firebase
+.firebaserc
+database.rules.json
+firebase.json
+remoteconfig.template.json
+storage.rules
 
 # local env files
 .env.local
