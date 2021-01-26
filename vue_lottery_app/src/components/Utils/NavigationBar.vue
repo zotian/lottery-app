@@ -24,6 +24,7 @@
         <Language-Select :userEmail="userEmail" :fromNavBar="true">
           <template v-slot:history>
             <b-dropdown-item
+              :disabled="isHomeDisabled"
               class="linkColor"
               @click="handleRouterChange('/history')"
               >{{ $t("navigation.history") }}</b-dropdown-item

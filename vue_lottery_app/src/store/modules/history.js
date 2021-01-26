@@ -36,12 +36,14 @@ const actions = {
           commit("HISTORY_BETS_RESPONSE", { res: res.data, vm });
           resolve(res);
         })
-        .catch(err => {
-          reject(err);
+        .catch(error => {
+          checkSessionExpiration(commit, error, vm);
+          reject(error);
         });
     });
   },
-  addHistory(...payload) {
+  addHistory({ commit }, payload) {
+    const { vm, requestPayload } = payload;
     return new Promise((resolve, reject) => {
       let token = "";
       if (localStorage.getItem("loginData")) {
@@ -49,12 +51,13 @@ const actions = {
       }
       let url = `${baseURL}history.json?auth=${token}`;
       axios
-        .post(url, payload[1])
+        .post(url, requestPayload)
         .then(res => {
           resolve(res);
         })
-        .catch(err => {
-          reject(err);
+        .catch(error => {
+          checkSessionExpiration(commit, error, vm);
+          reject(error);
         });
     });
   },
@@ -72,13 +75,26 @@ const actions = {
           commit("DELETE_HISTORY_RESPONSE", { vm, id });
           resolve(res);
         })
-        .catch(err => {
-          reject(err);
+        .catch(error => {
+          checkSessionExpiration(commit, error, vm);
+          reject(error);
         });
     });
   }
 };
 
+const checkSessionExpiration = (commit, error, vm) => {
+  const errorMsg = error.err.response.data.error.message;
+  if (errorMsg === "Auth token is expired") {
+    commit(
+      "login/SESSION_EXPIRED",
+      {
+        vm
+      },
+      { root: true }
+    );
+  }
+};
 export default {
   namespaced: true,
   state,

@@ -10,16 +10,19 @@ const mutations = {
     const { res } = payload;
     state.userData = payload;
     localStorage.setItem("loginData", JSON.stringify(res.data));
+  },
+  SESSION_EXPIRED(state, payload) {
+    const { vm } = payload;
+    vm.$router.push("/login");
+    localStorage.removeItem("loginData");
+    vm.$nextTick(() => {
+      vm.$bvToast.toast(vm.$t("toast.error.sessionExpired"), {
+        title: vm.$t("buttons.error"),
+        variant: "danger",
+        solid: true
+      });
+    });
   }
-  // LOGOUT (payload) {
-  //   const {vm} = payload
-  //   localStorage.removeItem('loginData');
-  //   vm.$bvToast.toast('Session Expired', {
-  //     title: 'Error',
-  //     variant: 'danger',
-  //     solid: true
-  //     })
-  // }
 };
 const actions = {
   loginRegister({ commit }, payload) {

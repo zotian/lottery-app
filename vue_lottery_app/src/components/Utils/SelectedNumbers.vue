@@ -144,14 +144,14 @@ export default {
       this.removeSelectedNumber(payload);
     },
     saveHistory() {
-      const body = {
+      const requestPayload = {
         timeStamp: Date.now(),
         drawNumbers: this.lotteryNumbers,
         playerBet: this.selectedNumbers,
         totalAmountWon: this.winningAmmount,
         userId: JSON.parse(localStorage.getItem("loginData")).localId
       };
-      this.addHistory(body)
+      this.addHistory({ requestPayload, vm: this })
         .then(() => {
           this.successToast(this.$t("toast.success.addToHistory"));
           setTimeout(() => {
