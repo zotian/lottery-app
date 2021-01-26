@@ -188,8 +188,10 @@ export default {
     },
     rowClass(item, type) {
       if (!item || type !== "row") return;
-      if (item.totalAmountWon && Number(item.totalAmountWon) !== 0) return "table-success";
-      if (!item.totalAmountWon || Number(item.totalAmountWon) === 0) return "table-danger";
+      if (item.totalAmountWon && Number(item.totalAmountWon) !== 0)
+        return "table-success";
+      if (!item.totalAmountWon || Number(item.totalAmountWon) === 0)
+        return "table-danger";
     },
     mapData() {
       this.baseData = JSON.parse(JSON.stringify(this.historyBets)).reduce(

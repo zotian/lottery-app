@@ -10,10 +10,11 @@
   >
     <div class="colorDimGrey">
       <p>
-        {{ $t("history.modal.date") }}: <span class="fontBold">{{ infoModal.date }}</span>
+        {{ $t("history.modal.date") }}:
+        <span class="fontBold">{{ infoModal.date }}</span>
       </p>
       <p>
-       {{ $t("history.drawNumbers") }}:
+        {{ $t("history.drawNumbers") }}:
         <span
           class="fontBold"
           v-for="number in infoModal.drawNumbers"
