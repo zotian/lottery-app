@@ -91,6 +91,9 @@ export default {
 
 <style lang="scss">
 @import "~@/scss/colors";
+.navbar-toggler {
+  background-color: $lightGrey !important;
+}
 .navigation_main {
   &.bg-light {
     background-color: $darkBlue !important;

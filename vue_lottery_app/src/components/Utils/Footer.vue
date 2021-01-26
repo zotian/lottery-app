@@ -36,8 +36,8 @@ export default {};
   transform: translate(-50%, 0%);
   width: 100%;
   text-align: center;
-  height: 10vh;
   display: flex;
+  z-index: 3;
   .footer_ul {
     list-style: none;
     margin: 0;

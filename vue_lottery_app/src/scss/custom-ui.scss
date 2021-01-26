@@ -54,9 +54,12 @@
 }
   @media (max-width: 800px) {
     .home__left, .home__right {
-      width: 90vw
+      width: 98vw
     }
     .home__left {
       margin-bottom: 20px;
+    }
+    .home {
+      margin: 20px;
     }
   }

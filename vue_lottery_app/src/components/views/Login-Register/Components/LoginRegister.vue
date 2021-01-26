@@ -168,7 +168,7 @@ export default {
 .card-body {
   position: absolute;
   background-color: white;
-  min-width: 450px;
+  width: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

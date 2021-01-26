@@ -73,8 +73,8 @@ export default {
 
 <style lang="scss">
 .number__button {
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   margin: 5px;
 }
 </style>

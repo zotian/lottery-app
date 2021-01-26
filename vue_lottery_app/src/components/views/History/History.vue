@@ -56,15 +56,15 @@
           </b-card>
         </template>
       </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        align="fill"
+        size="sm"
+        class="my-0 pagination__main"
+      ></b-pagination>
     </div>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="totalRows"
-      :per-page="perPage"
-      align="fill"
-      size="sm"
-      class="my-0 pagination__main"
-    ></b-pagination>
     <History-Info-Modal :infoModal="infoModal"></History-Info-Modal>
     <Confirmation-Modal
       :modalTitle="$t('modalsGeneral.confirmation')"
@@ -225,7 +225,7 @@ export default {
 <style lang="scss">
 @import "~@/scss/colors";
 .grid {
-  margin-top: 5vh;
+  padding: 30px;
 }
 .fontBold {
   font-weight: bold;
