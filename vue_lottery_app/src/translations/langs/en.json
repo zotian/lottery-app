@@ -7,7 +7,7 @@
     "enterEmail": "Enter email",
     "password": "Password:",
     "enterPassword": "Enter password",
-    "successRegister": "Your account was successfully created!"
+    "successRegister": "Your account was created successfully!"
   },
   "navigation": {
     "home": "Home",
