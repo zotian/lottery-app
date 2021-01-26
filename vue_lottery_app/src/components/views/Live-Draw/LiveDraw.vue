@@ -75,7 +75,7 @@ export default {
             clearInterval(this.intervalid);
           }
         }.bind(this),
-        4000
+        114000
       );
     },
     handleGenerateNumbers() {
@@ -115,12 +115,16 @@ export default {
 };
 </script>
 <style lang="scss">
+.spinner-grow-sm {
+  width: 18px;
+  height: 18px;
+}
 .spinner_position {
   font-size: 18px;
   letter-spacing: 1px;
   font-weight: bold;
   position: absolute;
-  top: 4%;
+  top: 32px;
   transform: translate(-50%, -50%);
   left: 50%;
 }
